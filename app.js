@@ -4,7 +4,11 @@ const app = express()
 
 app.set('view engine', 'ejs')
 
+// Rutas
 app.use("", require("./routes/home.routes"))
+
+const rutasEmpleado = require("./routes/empleado.routes")
+app.use('/user/empleado', rutasEmpleado)
 
 const port = 3000;
 
