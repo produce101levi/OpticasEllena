@@ -9,9 +9,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@2/css/all.min.css">
 </head>
 <body>
-    <%- include('menu') %>
+    <%- include('includes/menu') %>
     <div class="mx-5 mt-5">
-        <h1 class="title is-1"> Cartera </h1>
+        <div class="columns">
+            <div class="column">
+                <h1 class="title is-1"> Cartera </h1>
+            </div>
+            <div class="column level-right">
+                <a class="button is-danger is-light"> Agregar Contrato</a>
+            </div>
+        </div>
         <table class="table is-bordered is-fullwidth">
             <tbody>
                 <tr>
@@ -25,17 +32,19 @@
                     <th>Teléfono</th>
                     <th>Fecha que Recibe</th>
                 </tr>
+                <% for (let contrato of contratos) { %>
                 <tr>
-                    <td>407</td>
-                    <td>11-01-2025</td>
-                    <td>Jimena Díaz Cervantes</td>
-                    <td>$1900</td>
-                    <td>$950</td>
-                    <td>$950</td>
-                    <td>18-01-2025</td>
-                    <td>465 118 8226</td>
-                    <td></td>
+                    <td><%= contrato.IDContrato %></td>
+                    <td><%= contrato.fecha_venta %></td>
+                    <td><%= contrato.nombre %> <%= contrato.apellido %></td>
+                    <td>$<%= contrato.total_venta %></td>
+                    <td>$<%= contrato.anticipo %></td>
+                    <td>$<%= contrato.saldo %></td>
+                    <td><%= contrato.fecha_entrega %></td>
+                    <td><%= contrato.telefono %></td>
+                    <td><%= contrato.fecha_recibido %></td>                 
                 </tr>
+                <% } %>
             </tbody>
 
         </table>
