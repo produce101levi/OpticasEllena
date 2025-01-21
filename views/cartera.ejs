@@ -16,7 +16,7 @@
                 <h1 class="title is-1"> Cartera </h1>
             </div>
             <div class="column level-right">
-                <a class="button is-danger is-light" href="/user/empleado/agregar-contrato"> Agregar Contrato</a>
+                <a class="button is-danger is-light" href="/user/empleado/crear-contrato"> Agregar Contrato</a>
             </div>
         </div>
         <table class="table is-bordered is-fullwidth">
@@ -42,7 +42,7 @@
                     <td>$<%= contrato.saldo %></td>
                     <td><%= contrato.fecha_entrega %></td>
                     <td><%= contrato.telefono %></td>
-                    <td><%= contrato.fecha_recibido %></td>                 
+                    <td contenteditable="true"><%= contrato.fecha_recibido %></td>                 
                 </tr>
                 <% } %>
             </tbody>
