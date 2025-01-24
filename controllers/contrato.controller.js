@@ -19,11 +19,21 @@ exports.get_contratos = async (req, res, next) => {
     }
 }
 
-exports.crear_contrato = async (req, res, next) => {
+// exports.post_crear_contrato = async (req, res, next) => {
+//     try {
+//         res.render('crear_contrato');
+//     } catch (error) {
+//         console.error('Error consiguiendo cartera:', error);
+//         res.status(500).send('Error de Servidor');
+//     }
+// }
+
+exports.get_tratamientos = async (req, res, next) => {
     try {
-        res.render('crear_contrato');
-    } catch (error) {
-        console.error('Error consiguiendo cartera:', error);
-        res.status(500).send('Error de Servidor');
+        const [rows] = await Contrato.obtener_tratamientos();
+        // console.log('Tratamientos: ', rows);
+        res.render('crear_contrato', {tratamientos: rows});
+    } catch(error) {
+        console.error(error);
     }
 }
