@@ -79,4 +79,48 @@ module.exports = class Contrato {
         )
     }
 
+    static async agregar_cliente(nombre, apellido, telefono){
+        const [result] = await db.execute(
+            `INSERT INTO clientes (nombre, apellido, telefono)
+            VALUES(?, ?, ?)`,
+            [nombre, apellido, telefono]
+        );
+        return result.insertId // Return Client ID
+    }
+
+    static async agregar_contrato(
+        nombre, apellido, telefono,
+        IDContrato, numero_armazones, fecha_venta, 
+        total_venta, anticipo, saldo,
+        fecha_entrega, metodo_pago, observaciones 
+    ){
+        const IDCliente = await this.agregar_cliente(nombre, apellido, telefono);
+
+        // console.log({
+        //     IDContrato,
+        //     IDCliente,
+        //     numero_armazones,
+        //     fecha_venta,
+        //     total_venta,
+        //     anticipo,
+        //     saldo,
+        //     fecha_entrega,
+        //     metodo_pago,
+        //     observaciones
+        // });
+
+        return db.execute(
+            `INSERT INTO contratos(
+                IDContrato, IDCliente, numero_armazones,
+                fecha_venta, total_venta, anticipo, saldo,
+                fecha_entrega, metodo_pago, observaciones
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                IDContrato, IDCliente, numero_armazones, 
+                fecha_venta, total_venta, anticipo, saldo,
+                fecha_entrega, metodo_pago, observaciones
+            ]
+        );
+    }
 }

@@ -23,14 +23,21 @@
                             <div class="column">
 
                                 <p class="control has-icons-left">
-                                    <input class="input" type="text" placeholder="Número de Contrato">
+                                    <input class="input" type="text" name="IDContrato" placeholder="Número de Contrato">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-hashtag"></i>
                                     </span>
                                 </p>
                             </div>
                             <div class="column is-four-fifths">
-
+                                <p class="control has-icons-left">
+                                    <input class="input" type="date" name="fecha_venta" placeholder="Fecha de Contrato">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                    <p class="help">Fecha de Contrato</p>
+                                </p>
+                                <p></p>
                             </div>
                             
                         </div>
@@ -43,7 +50,15 @@
                 <div class="field-body">
                     <div class="field">
                         <p class="control is-expanded has-icons-left">
-                            <input class="input" type="text" placeholder="Nombre Completo">
+                            <input class="input" type="text" name="nombre" placeholder="Nombre">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control is-expanded has-icons-left">
+                            <input class="input" type="text" name="apellido" placeholder="Apellido">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -51,12 +66,13 @@
                     </div>
                 </div>
             </div>
+
             <div class="field is-horizontal">
                 <div class="field-body">
                     <div class="field">
                         <div class="field has-addons">
                             <p class="control is-expanded has-icons-left">
-                                <input class="input" type="tel" placeholder="Número Telefónico">
+                                <input class="input" type="tel" name="telefono" placeholder="Número Telefónico">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-phone"></i>
                                 </span>
@@ -65,15 +81,17 @@
                     </div>
                     <div class="field">
                         <p class="control is-expanded has-icons-left">
-                            <input class="input" type="date">
+                            <input class="input" type="date" name="fecha_entrega">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-calendar"></i>
                             </span>
+                            
                         </p>
+                        <p class="help">Fecha de Entrega</p>
                     </div>
                     <div class="field is-small">
                         <p class="control has-icons-left">
-                            <input class="input" type="number" placeholder="Número de armazones">
+                            <input class="input" type="number" name="numero_armazones" placeholder="Número de armazones">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-hashtag"></i>
                             </span>
@@ -177,7 +195,7 @@
             <div class="field is-horizontal">
                 <div class="field-body">
                     <div class="select mr-3">
-                        <select>
+                        <select name="metodo_pago">
                             <option>Forma de Pago</option>
                             <option>Efectivo</option>
                             <option>Cheque</option>
@@ -187,7 +205,7 @@
                     </div>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="number" placeholder="Total de Compra">
+                            <input class="input" type="number" name="total_venta" placeholder="Total de Compra">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-money-bill"></i>
                             </span>
@@ -195,7 +213,7 @@
                     </div>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="number" placeholder="Este Pago">
+                            <input class="input" type="number" name="anticipo" placeholder="Este Pago">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-money-bill"></i>
                             </span>
@@ -203,7 +221,7 @@
                     </div>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="number" placeholder="Saldo">
+                            <input class="input" type="number" name="saldo" placeholder="Saldo">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-money-bill"></i>
                             </span>
@@ -380,7 +398,7 @@
                 
             </table>
 
-            <textarea class="textarea" placeholder="Observaciones"></textarea>
+            <textarea class="textarea" name="observaciones" placeholder="Observaciones"></textarea>
             <br>
             <input type="submit" class="button is-danger is-outlined" value="Guardar">
         </form>

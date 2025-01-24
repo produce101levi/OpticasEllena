@@ -4,6 +4,10 @@ const app = express()
 
 app.set('view engine', 'ejs')
 
+// Middleware para utilizar JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Rutas
 app.use("", require("./routes/home.routes"))
 

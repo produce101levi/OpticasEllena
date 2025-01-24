@@ -3,7 +3,7 @@ const Contrato = require('../models/cartera.model');
 exports.get_contratos = async (req, res, next) => {
     try {
         const [rows] = await Contrato.buscarContrato();
-        console.log('Rows: ', rows);
+        // console.log('Rows: ', rows);
 
         const formattedRows = rows.map(contrato => ({
             ...contrato,
@@ -34,6 +34,27 @@ exports.get_tratamientos = async (req, res, next) => {
         // console.log('Tratamientos: ', rows);
         res.render('crear_contrato', {tratamientos: rows});
     } catch(error) {
+        console.error(error);
+    }
+}
+
+exports.post_contrato = async (req, res, next) => {
+    try {
+        const { 
+            nombre, apellido, telefono,
+            IDContrato, numero_armazones, fecha_venta, 
+            total_venta, anticipo, saldo,
+            fecha_entrega, metodo_pago, observaciones
+        } = req.body;
+        console.log(req.body);
+        const [rows] = await Contrato.agregar_contrato(
+            nombre, apellido, telefono,
+            IDContrato, numero_armazones, fecha_venta, 
+            total_venta, anticipo, saldo,
+            fecha_entrega, metodo_pago, observaciones
+        );
+        // console.log('Cliente: ', rows);
+    } catch(error){
         console.error(error);
     }
 }
