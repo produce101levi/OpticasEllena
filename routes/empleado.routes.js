@@ -1,8 +1,9 @@
 const express = require('express');
-const carteraController = require('../controllers/cartera.controller');
+const contratoController = require('../controllers/contrato.controller');
 const router = express.Router();
 
-router.get('/cartera', carteraController.get_contratos);
-router.get('/crear-contrato', carteraController.crear_contrato);
+router.get('/cartera', contratoController.get_contratos);
+// router.post('/crear-contrato', contratoController.post_crear_contrato);
+router.get('/crear-contrato', contratoController.get_tratamientos);
 
 module.exports = router;
