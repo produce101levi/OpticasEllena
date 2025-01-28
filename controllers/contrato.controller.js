@@ -59,3 +59,22 @@ exports.post_contrato = async (req, res, next) => {
         console.error(error);
     }
 }
+
+exports.get_buscar_contrato = async (req, res, next) => {
+    try {
+        // console.log('Search value:', req.params.valor_busqueda);
+        const [rows] = await Contrato.buscar_contrato(req.params.valor_busqueda || '');
+
+        const formattedRows = rows.map(contrato => ({
+            ...contrato,
+            fecha_venta: new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium' }).format(new Date(contrato.fecha_venta)),
+            fecha_entrega: new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium' }).format(new Date(contrato.fecha_entrega)),
+            fecha_recibido: new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium' }).format(new Date(contrato.fecha_recibido)),
+        }));
+
+        return res.status(200).json({contratos: formattedRows});
+
+    } catch(error) {
+        console.log(error);
+    }
+}
