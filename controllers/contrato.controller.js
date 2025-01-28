@@ -44,15 +44,16 @@ exports.post_contrato = async (req, res, next) => {
             nombre, apellido, telefono,
             IDContrato, numero_armazones, fecha_venta, 
             total_venta, anticipo, saldo,
-            fecha_entrega, metodo_pago, observaciones
+            fecha_entrega, fecha_recibido, metodo_pago, observaciones
         } = req.body;
         console.log(req.body);
         const [rows] = await Contrato.agregar_contrato(
             nombre, apellido, telefono,
             IDContrato, numero_armazones, fecha_venta, 
             total_venta, anticipo, saldo,
-            fecha_entrega, metodo_pago, observaciones
+            fecha_entrega, fecha_recibido, metodo_pago, observaciones
         );
+        res.redirect('/user/empleado/cartera');
         // console.log('Cliente: ', rows);
     } catch(error){
         console.error(error);
