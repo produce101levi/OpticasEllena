@@ -69,7 +69,8 @@ module.exports = class Contrato {
                 clientes cl, 
                 contratos co 
             WHERE 
-                cl.IDCliente = co.IDCliente`
+                cl.IDCliente = co.IDCliente
+            ORDER BY CAST(SUBSTRING_INDEX(IDContrato, '-', 1) AS UNSIGNED);`
         );
     }
 
@@ -92,7 +93,7 @@ module.exports = class Contrato {
         nombre, apellido, telefono,
         IDContrato, numero_armazones, fecha_venta, 
         total_venta, anticipo, saldo,
-        fecha_entrega, metodo_pago, observaciones 
+        fecha_entrega, fecha_recibido, metodo_pago, observaciones 
     ){
         const IDCliente = await this.agregar_cliente(nombre, apellido, telefono);
 
@@ -113,13 +114,13 @@ module.exports = class Contrato {
             `INSERT INTO contratos(
                 IDContrato, IDCliente, numero_armazones,
                 fecha_venta, total_venta, anticipo, saldo,
-                fecha_entrega, metodo_pago, observaciones
+                fecha_entrega, fecha_recibido, metodo_pago, observaciones
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 IDContrato, IDCliente, numero_armazones, 
                 fecha_venta, total_venta, anticipo, saldo,
-                fecha_entrega, metodo_pago, observaciones
+                fecha_entrega, fecha_recibido, metodo_pago, observaciones
             ]
         );
     }
