@@ -19,38 +19,105 @@
                 <a class="button is-danger is-light" href="/user/empleado/crear-contrato"> Agregar Contrato</a>
             </div>
         </div>
-        <input class="input" type="text" placeholder="Buscar Contrato">
+        <input class="input" type="text" id="buscar" placeholder="Buscar Contrato">
         <br>
         <br>
-        <table class="table is-bordered is-fullwidth">
-            <tbody>
-                <tr>
-                    <th>Contrato</th>
-                    <th>Fecha de Venta</th>
-                    <th>Nombre</th>
-                    <th>Total de Venta</th>
-                    <th>Anticipo</th>
-                    <th>Saldo</th>
-                    <th>Tiempo de Entrega</th>
-                    <th>Teléfono</th>
-                    <th>Fecha que Recibe</th>
-                </tr>
-                <% for (let contrato of contratos) { %>
-                <tr>
-                    <td><%= contrato.IDContrato %></td>
-                    <td><%= contrato.fecha_venta %></td>
-                    <td><%= contrato.nombre %> <%= contrato.apellido %></td>
-                    <td>$<%= contrato.total_venta %></td>
-                    <td>$<%= contrato.anticipo %></td>
-                    <td>$<%= contrato.saldo %></td>
-                    <td><%= contrato.fecha_entrega %></td>
-                    <td><%= contrato.telefono %></td>
-                    <td contenteditable="true"><%= contrato.fecha_recibido %></td>                 
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+        <div id="respuesta_ajax">
+
+            <table class="table is-bordered is-fullwidth">
+                <tbody>
+                    <tr>
+                        <th>Contrato</th>
+                        <th>Fecha de Venta</th>
+                        <th>Nombre</th>
+                        <th>Total de Venta</th>
+                        <th>Anticipo</th>
+                        <th>Saldo</th>
+                        <th>Tiempo de Entrega</th>
+                        <th>Teléfono</th>
+                        <th>Fecha que Recibe</th>
+                    </tr>
+                    <% for (let contrato of contratos) { %>
+                    <tr>
+                        <td><%= contrato.IDContrato %></td>
+                        <td><%= contrato.fecha_venta %></td>
+                        <td><%= contrato.nombre %> <%= contrato.apellido %></td>
+                        <td>$<%= contrato.total_venta %></td>
+                        <td>$<%= contrato.anticipo %></td>
+                        <td>$<%= contrato.saldo %></td>
+                        <td><%= contrato.fecha_entrega %></td>
+                        <td><%= contrato.telefono %></td>
+                        <td contenteditable="true"><%= contrato.fecha_recibido %></td>                 
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
         <br>
     </div>
+
+    <script>
+        const buscar_contrato = () => {
+            console.log("Buscando...");
+            const valor_busqueda = document.getElementById('buscar').value;
+            fetch('/user/empleado/cartera/buscar/' + valor_busqueda, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then((result) => {
+                console.log(result);
+                return result.json();
+            }).then((data) => {
+                console.log(data);
+                let html = '';
+
+
+                html += `
+                <table class="table is-bordered is-fullwidth">
+                <tbody>
+                    <tr>
+                        <th>Contrato</th>
+                        <th>Fecha de Venta</th>
+                        <th>Nombre</th>
+                        <th>Total de Venta</th>
+                        <th>Anticipo</th>
+                        <th>Saldo</th>
+                        <th>Tiempo de Entrega</th>
+                        <th>Teléfono</th>
+                        <th>Fecha que Recibe</th>
+                    </tr>
+                `
+
+                
+                for (let contrato of data.contratos) {
+                    html+=`
+                    <tr>
+                        <td>${contrato.IDContrato}</td>
+                        <td>${contrato.fecha_venta}</td>
+                        <td>${contrato.nombre} ${contrato.apellido}</td>
+                        <td>${contrato.total_venta}</td>
+                        <td>$ ${contrato.anticipo}</td>
+                        <td>$ ${contrato.saldo}</td>
+                        <td>${contrato.fecha_entrega}</td>
+                        <td>${contrato.telefono}</td>
+                        <td contenteditable="true">${contrato.fecha_recibido}</td>                 
+                        </tr>
+                        `
+                    }
+                    
+                    html+=`
+                    </tbody>
+                    </table>
+                    `
+                    
+                    document.getElementById('respuesta_ajax').innerHTML = html;
+                }).catch((err => {
+                    console.log(err);
+                }))
+            };
+            document.getElementById('buscar').onkeyup = buscar_contrato;
+            
+            </script>
 </body>
 </html>
