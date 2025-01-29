@@ -31,9 +31,23 @@ exports.get_contratos = async (req, res, next) => {
 exports.get_tratamientos = async (req, res, next) => {
     try {
         const [rows] = await Contrato.obtener_tratamientos();
-        // console.log('Tratamientos: ', rows);
-        res.render('crear_contrato', {tratamientos: rows});
+        req.tratamientos = rows;
+        next();
     } catch(error) {
+        console.error(error);
+        next(error);
+    }
+}
+
+exports.get_armazones = async (req, res, next) => {
+    try {
+        const [rows] = await Contrato.get_armazones();
+        // console.log('Armazones: ', rows);
+        res.render('crear_contrato', {
+            armazones: rows,
+            tratamientos: req.tratamientos,
+        });
+    } catch(error){
         console.error(error);
     }
 }
