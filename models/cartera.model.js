@@ -97,20 +97,7 @@ module.exports = class Contrato {
     ){
         const IDCliente = await this.agregar_cliente(nombre, apellido, telefono);
 
-        // console.log({
-        //     IDContrato,
-        //     IDCliente,
-        //     numero_armazones,
-        //     fecha_venta,
-        //     total_venta,
-        //     anticipo,
-        //     saldo,
-        //     fecha_entrega,
-        //     metodo_pago,
-        //     observaciones
-        // });
-
-        return db.execute(
+        const [result] = await db.execute(
             `INSERT INTO contratos(
                 IDContrato, IDCliente, numero_armazones,
                 fecha_venta, total_venta, anticipo, saldo,
@@ -123,6 +110,14 @@ module.exports = class Contrato {
                 fecha_entrega, fecha_recibido, metodo_pago, observaciones
             ]
         );
+
+        return result.insertId;
+    }
+
+    static async get_armazones(){
+        return db.execute(`
+            SELECT * FROM armazones
+        `)
     }
 
     static buscar_contrato(valor_busqueda){

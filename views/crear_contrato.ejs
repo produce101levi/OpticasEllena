@@ -112,15 +112,13 @@
     
             <div class="field is-horizontal">
                 <div class="field-body">
-                    <div class="field">
-                        <div class="field has-addons">
-                            <p class="control is-expanded has-icons-left">
-                                <input class="input" type="text" autocomplete="off" placeholder="Armazón">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-glasses"></i>
-                                </span>
-                            </p>
-                        </div>
+                    <div class="select mr-3 is-fullwidth">
+                        <select>
+                            <option>Armazón</option>
+                            <% for (let armazon of armazones) { %>
+                                <option> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
+                            <% } %>
+                        </select>
                     </div>
                     <div class="select mr-3">
                         <select>
@@ -143,15 +141,13 @@
     
             <div class="field is-horizontal">
                 <div class="field-body">
-                    <div class="field">
-                        <div class="field has-addons">
-                            <p class="control is-expanded has-icons-left">
-                                <input class="input" type="text" autocomplete="off" placeholder="Armazón">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-glasses"></i>
-                                </span>
-                            </p>
-                        </div>
+                    <div class="select mr-3 is-fullwidth">
+                        <select>
+                            <option>Armazón</option>
+                            <% for (let armazon of armazones) { %>
+                                <option> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
+                            <% } %>
+                        </select>
                     </div>
                     <div class="select mr-3">
                         <select>
@@ -173,15 +169,13 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-body">
-                    <div class="field">
-                        <div class="field has-addons">
-                            <p class="control is-expanded has-icons-left">
-                                <input class="input" type="text" autocomplete="off" placeholder="Armazón">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-glasses"></i>
-                                </span>
-                            </p>
-                        </div>
+                    <div class="select mr-3 is-fullwidth">
+                        <select>
+                            <option>Armazón</option>
+                            <% for (let armazon of armazones) { %>
+                                <option> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
+                            <% } %>
+                        </select>
                     </div>
                     <div class="select mr-3">
                         <select>
