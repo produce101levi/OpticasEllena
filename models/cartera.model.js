@@ -114,6 +114,45 @@ module.exports = class Contrato {
         return result.insertId;
     }
 
+    static async get_IDArmazon(marca, modelo, material, color){
+
+        const [result] = await db.execute(`
+            SELECT IDArmazon FROM armazones
+            WHERE (marca = ? OR marca IS NULL)
+            AND (modelo = ? OR modelo IS NULL)
+            AND (material = ? OR material IS NULL)
+            AND (color = ? OR color IS NULL)
+        `, [marca, modelo, material, color]);
+
+        // console.log(result[0].IDArmazon);
+
+        return result[0].IDArmazon;
+
+    }
+
+    static async get_IDTratamiento(tratamiento){
+        const [result] = await db.execute(`
+            SELECT IDTratamiento FROM tratamientos
+            WHERE tratamiento = ?
+        `, [tratamiento]);
+
+        console.log(result[0].IDTratamiento);
+
+        return result[0].IDTratamiento;
+    }
+
+    // static async agregar_encargo(
+    //     nombre, apellido, telefono,
+    //     IDContrato, numero_armazones, fecha_venta, 
+    //     total_venta, anticipo, saldo,
+    //     fecha_entrega, fecha_recibido, metodo_pago, observaciones,
+    //     IDArmazon
+    // ){
+
+    // }
+
+
+
     static async get_armazones(){
         return db.execute(`
             SELECT * FROM armazones
