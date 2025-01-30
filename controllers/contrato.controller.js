@@ -58,17 +58,53 @@ exports.post_contrato = async (req, res, next) => {
             nombre, apellido, telefono,
             IDContrato, numero_armazones, fecha_venta, 
             total_venta, anticipo, saldo,
-            fecha_entrega, fecha_recibido, metodo_pago, observaciones
+            fecha_entrega, fecha_recibido, metodo_pago, observaciones,
+            armazon, armazon2, armazon3, tratamiento, tratamiento2, tratamiento3
         } = req.body;
         console.log(req.body);
-        const [rows] = await Contrato.agregar_contrato(
-            nombre, apellido, telefono,
-            IDContrato, numero_armazones, fecha_venta, 
-            total_venta, anticipo, saldo,
-            fecha_entrega, fecha_recibido, metodo_pago, observaciones
-        );
+
+        // Función auxiliar para conseguir ID de los 3 armazones
+        const get_IDArmazon = async (armazon) => {
+            const [marca, modelo, material, color] = armazon.split(" ");
+            if(armazon == "Armazón") return null;
+
+            // console.log("Atributos:", marca, modelo, material, color);
+
+            return await Contrato.get_IDArmazon(
+                marca, modelo, material, color
+            );
+
+        }
+
+        // Obtener ID de Armazón
+        const [IDArmazon, IDArmazon2, IDArmazon3] = await Promise.all([
+            get_IDArmazon(armazon),
+            get_IDArmazon(armazon2),
+            get_IDArmazon(armazon3),
+        ])
+
+        // console.log(IDArmazon, IDArmazon2, IDArmazon3);
+
+        // Obtener ID de Tratamiento
+        const get_IDTratamiento = async (tratamiento) => {
+            if(tratamiento == "Tratamientos"){
+                return null;
+            }
+
+            return await Contrato.get_IDTratamiento(tratamiento);
+        }
+
+        const [IDTratamiento, IDTratamiento2, IDTratamiento3] = await Promise.all([
+            get_IDTratamiento(tratamiento),
+            get_IDTratamiento(tratamiento2),
+            get_IDTratamiento(tratamiento3),
+        ])
+
+        // console.log(marca, modelo, material, color);
+
+
         res.redirect('/user/empleado/cartera');
-        // console.log('Cliente: ', rows);
+        // console.log('Armazon: ', rows);
     } catch(error){
         console.error(error);
     }
