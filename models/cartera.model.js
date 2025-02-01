@@ -30,6 +30,7 @@ module.exports = class Contrato {
         )
     }
 
+    // Agregar Cliente
     static async agregar_cliente(nombre, apellido, telefono){
         const [result] = await db.execute(
             `INSERT INTO clientes (nombre, apellido, telefono)
@@ -39,6 +40,7 @@ module.exports = class Contrato {
         return result.insertId // Return Client ID
     }
 
+    // Agregar Contrato
     static async agregar_contrato(
         nombre, apellido, telefono,
         IDContrato, numero_armazones, fecha_venta, 
@@ -47,7 +49,9 @@ module.exports = class Contrato {
     ){
         const IDCliente = await this.agregar_cliente(nombre, apellido, telefono);
 
-        const [result] = await db.execute(
+        console.log('Agregando Contrato...');
+
+        return db.execute(
             `INSERT INTO contratos(
                 IDContrato, IDCliente, numero_armazones,
                 fecha_venta, total_venta, anticipo, saldo,
@@ -60,8 +64,77 @@ module.exports = class Contrato {
                 fecha_entrega, fecha_recibido, metodo_pago, observaciones
             ]
         );
+    }
+
+    // Agregar Graduación
+    static async agregar_graduacion(
+        esfera_d, esfera_i, cilindro_d, cilindro_i, eje_d, eje_i,
+        add_d, add_i, dip_d, dip_i
+    ){
+
+        console.log('Agregando Graduación...');
+        
+        const [result] = await db.execute(`
+        INSERT INTO graduaciones(
+            esfera_i, esfera_d, cilindro_i, cilindro_d,
+            eje_i, eje_d, add_i, 
+            add_d, dip_i, dip_d 
+        )
+        VALUES(
+            ?, ?, ?, ?, 
+            ?, ?, ?, 
+            ?, ?, ?
+        )`, 
+        [
+            esfera_i, esfera_d, cilindro_i, cilindro_d, 
+            eje_i, eje_d, add_i, 
+            add_d, dip_i, dip_d
+        ]);
+
 
         return result.insertId;
+
+    }
+
+    // Agregar Encargo
+    static async agregar_encargo(
+        nombre, apellido, telefono,
+        IDContrato, numero_armazones, fecha_venta, 
+        total_venta, anticipo, saldo,
+        fecha_entrega, fecha_recibido, metodo_pago, observaciones,
+        marca, modelo, material, color, tratamiento,
+        esfera_d, esfera_i, cilindro_d, 
+        cilindro_i, eje_d, eje_i, add_d, 
+        add_i, dip_d, dip_i, i
+    ){
+        if (i == 0){
+            const [result_contrato] = await this.agregar_contrato(
+                nombre, apellido, telefono,
+                IDContrato, numero_armazones, fecha_venta, 
+                total_venta, anticipo, saldo,
+                fecha_entrega, fecha_recibido, metodo_pago, observaciones 
+            );
+        }
+
+        if((marca || modelo || material || color)
+        && (esfera_d || esfera_i || cilindro_d || 
+        cilindro_i || eje_d || eje_i || 
+        add_d || add_i || dip_d || dip_i)
+        && tratamiento){
+            const IDGraduacion = await this.agregar_graduacion(
+                esfera_d, esfera_i, cilindro_d, cilindro_i, eje_d, eje_i,
+                add_d, add_i, dip_d, dip_i
+            );
+            const IDArmazon = await this.get_IDArmazon(marca, modelo, material, color);
+            const IDTratamiento = await this.get_IDTratamiento(tratamiento);
+            return db.execute(`
+                INSERT INTO encargos(IDContrato, IDArmazon, IDTratamiento, IDGraduacion)
+                VALUES(?, ?, ?, ?)
+            `, [IDContrato, IDArmazon, IDTratamiento, IDGraduacion])
+        } else {
+            return null;
+        }
+
     }
 
     static async get_IDArmazon(marca, modelo, material, color){
@@ -86,43 +159,12 @@ module.exports = class Contrato {
             WHERE tratamiento = ?
         `, [tratamiento]);
 
-        console.log(result[0].IDTratamiento);
+        // console.log(result[0].IDTratamiento, ":", tratamiento);
 
         return result[0].IDTratamiento;
     }
 
-    static async add_graduacion(
-        esfera_d, esfera_i, cilindro_d, cilindro_i, eje_d, eje_i,
-        add_d, add_i, dip_d, dip_i
-    ){
-        return db.execute(`
-        INSERT INTO graduaciones(
-            esfera_i, esfera_d, cilindro_i, cilindro_d,
-            eje_i, eje_d, add_i, 
-            add_d, dip_i, dip_d 
-        )
-        VALUES(
-            ?, ?, ?, ?, 
-            ?, ?, ?, 
-            ?, ?, ?
-        )`, 
-        [
-            esfera_i, esfera_d, cilindro_i, cilindro_d, 
-            eje_i, eje_d, add_i, 
-            add_d, dip_i, dip_d
-        ]);
 
-    }
-
-    // static async agregar_encargo(
-    //     nombre, apellido, telefono,
-    //     IDContrato, numero_armazones, fecha_venta, 
-    //     total_venta, anticipo, saldo,
-    //     fecha_entrega, fecha_recibido, metodo_pago, observaciones,
-    //     IDArmazon
-    // ){
-
-    // }
 
 
 

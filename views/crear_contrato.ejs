@@ -109,11 +109,19 @@
                     </div>
                 </div>
             </div>
-    
+            
+            <!-- REGISTRO DE ARMAZONES -->
+            <% for (let i = 0; i < 3; i++){%>
             <div class="field is-horizontal">
                 <div class="field-body">
-                    <div class="select mr-3 is-fullwidth">
-                        <select name="armazon">
+                    <p class="control is-expanded has-icons-left">
+                        <input class="input" type="text" id="paciente[<%= i %>]" name="paciente_armazon" autocomplete="off" placeholder="Paciente">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </p>
+                    <div class="select mx-3 is-fullwidth">
+                        <select name="armazones[]">
                             <option>Armazón</option>
                             <% for (let armazon of armazones) { %>
                                 <option value="<%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %>"> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
@@ -121,7 +129,7 @@
                         </select>
                     </div>
                     <div class="select mr-3">
-                        <select>
+                        <select name="tipos_lentes[]">
                             <option>Monofocal</option>
                             <option>Flaptop</option>
                             <option>Blended</option>
@@ -129,7 +137,7 @@
                         </select>
                     </div>
                     <div class="select">
-                        <select name="tratamiento">
+                        <select name="tratamientos[]">
                             <option>Tratamientos</option>
                             <% for (let tratamiento of tratamientos) { %>
                             <option><%= tratamiento.tratamiento %></option>
@@ -138,64 +146,8 @@
                     </div>
                 </div>
             </div>
-    
-            <div class="field is-horizontal">
-                <div class="field-body">
-                    <div class="select mr-3 is-fullwidth">
-                        <select name="armazon2">
-                            <option>Armazón</option>
-                            <% for (let armazon of armazones) { %>
-                                <option value="<%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %>"> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="select mr-3">
-                        <select>
-                            <option>Monofocal</option>
-                            <option>Flaptop</option>
-                            <option>Blended</option>
-                            <option>Progresivos</option>
-                        </select>
-                    </div>
-                    <div class="select">
-                        <select name="tratamiento2">
-                            <option>Tratamientos</option>
-                            <% for (let tratamiento of tratamientos) { %>
-                            <option><%= tratamiento.tratamiento %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-body">
-                    <div class="select mr-3 is-fullwidth">
-                        <select name="armazon3">
-                            <option>Armazón</option>
-                            <% for (let armazon of armazones) { %>
-                                <option value="<%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %>"> <%= armazon.marca %> <%= armazon.modelo %> <%= armazon.material %> <%= armazon.color %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="select mr-3">
-                        <select>
-                            <option>Monofocal</option>
-                            <option>Flaptop</option>
-                            <option>Blended</option>
-                            <option>Progresivos</option>
-                        </select>
-                    </div>
-                    <div class="select">
-                        <select name="tratamiento3">
-                            <option>Tratamientos</option>
-                            <% for (let tratamiento of tratamientos) { %>
-                            <option><%= tratamiento.tratamiento %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                </div>
-            </div>
-    
+            <% } %>
+        
             <div class="field is-horizontal">
                 <div class="field-body">
                     <div class="select mr-3">
@@ -235,7 +187,6 @@
             </div>
 
             <!-- Tabla de Graduaciones -->
-
             <table class="table is-bordered is-fullwidth">
                 <tr>
                     <th>OJO</th>
@@ -245,26 +196,29 @@
                     <th>ADD</th>
                     <th>DIP/AO</th>
                 </tr>
-                <!-- GRADUACIÓN 1 -->
+                <% for (let i = 0; i < 3; i++){ %>
                 <tr>
-                    <th>DERECHO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_d" placeholder="Esfera OD"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_d" placeholder="Cilindro OD"></td>
+                    <th>
+                        DERECHO
+                        <p id="output[<%= i %>]"></p>
+                    </th>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][esfera_d]" placeholder="Esfera OD"></td>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][cilindro_d]" placeholder="Cilindro OD"></td>
                     <td>
                         <div class="field has-addons">
                             <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_d" placeholder="Eje OD">
+                              <input class="input" type="text" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][eje_d]" placeholder="Eje OD">
                             </div>
                             <div class="control">
                               <span class="button is-static">º</span>
                             </div>
                         </div>
                     </td>
-                    <td><input class="input" type="number " autocomplete="off" name="add_d" placeholder="Add OD"></td>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][add_d]" placeholder="Add OD"></td>
                     <td>
                         <div class="field has-addons">
                             <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_d" placeholder="DIP OD">
+                              <input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][dip_d]" placeholder="DIP OD">
                             </div>
                             <div class="control">
                               <span class="button is-static">mm</span>
@@ -274,23 +228,23 @@
                 </tr>
                 <tr>
                     <th>IZQUIERDO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_i" placeholder="Esfera OI"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_i" placeholder="Cilindro OI"></td>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][esfera_i]" placeholder="Esfera OI"></td>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][cilindro_i]" placeholder="Cilindro OI"></td>
                     <td>
                         <div class="field has-addons">
                             <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_i" placeholder="Eje OI">
+                              <input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][eje_i]" placeholder="Eje OI">
                             </div>
                             <div class="control">
                               <span class="button is-static">º</span>
                             </div>
                         </div>
                     </td>
-                    <td><input class="input" type="number" autocomplete="off" name="add_i" placeholder="Add OI"></td>
+                    <td><input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][add_i]" placeholder="Add OI"></td>
                     <td>
                         <div class="field has-addons">
                             <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_i" placeholder="DIP OI">
+                              <input class="input" type="number" step="0.01" autocomplete="off" name="graduaciones[<%= i %>][dip_i]" placeholder="DIP OI">
                             </div>
                             <div class="control">
                               <span class="button is-static">mm</span>
@@ -298,113 +252,7 @@
                           </div>
                     </td>
                 </tr>
-                <!-- GRADUACIÓN 2 -->
-                <tr>
-                    <th>DERECHO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_d2" placeholder="Esfera OD"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_d2" placeholder="Cilindro OD"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_d2" placeholder="Eje OD">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">º</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input class="input" type="number " autocomplete="off" name="add_d2" placeholder="Add OD"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_d2" placeholder="DIP OD">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">mm</span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>IZQUIERDO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_i2" placeholder="Esfera OI"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_i2" placeholder="Cilindro OI"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_i2" placeholder="Eje OI">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">º</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input class="input" type="number" autocomplete="off" name="add_i2" placeholder="Add OI"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_i2" placeholder="DIP OI">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">mm</span>
-                            </div>
-                          </div>
-                    </td>
-                </tr>
-                <!-- GRADUACIÓN 3 -->
-                <tr>
-                    <th>DERECHO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_d3" placeholder="Esfera OD"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_d3" placeholder="Cilindro OD"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_d3" placeholder="Eje OD">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">º</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input class="input" type="number " autocomplete="off" name="add_d3" placeholder="Add OD"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_d3" placeholder="DIP OD">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">mm</span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>IZQUIERDO</th>
-                    <td><input class="input" type="number" autocomplete="off" name="esfera_i3" placeholder="Esfera OI"></td>
-                    <td><input class="input" type="number" autocomplete="off" name="cilindro_i3" placeholder="Cilindro OI"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="eje_i3" placeholder="Eje OI">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">º</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input class="input" type="number" autocomplete="off" name="add_i3" placeholder="Add OI"></td>
-                    <td>
-                        <div class="field has-addons">
-                            <div class="control">
-                              <input class="input" type="text" autocomplete="off" name="dip_i3" placeholder="DIP OI">
-                            </div>
-                            <div class="control">
-                              <span class="button is-static">mm</span>
-                            </div>
-                          </div>
-                    </td>
-                </tr>
-                
+                <% } %>
             </table>
 
             <textarea class="textarea" name="observaciones" placeholder="Observaciones"></textarea>
@@ -416,4 +264,50 @@
         <br>
 
     </div>
+
+    <script>
+        // Autorrellenado de Nombre en Graduaciones
+        for (let i = 0; i < 3; i++){
+            const inputField = document.getElementById(`paciente[${i}]`);
+            const outputField = document.getElementById(`output[${i}]`);
+
+            inputField.addEventListener("input", function() {
+                outputField.textContent = inputField.value;
+            })
+
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Select all graduation inputs inside the table
+            const inputs = document.querySelectorAll("table input");
+
+            inputs.forEach(input => {
+                input.addEventListener("input", (event) => {
+                    const row = event.target.closest("tr"); // Find the row of the edited input
+                    const nameCell = row.querySelector("th"); // The name in the "OJO" column
+
+                    if (nameCell) {
+                        const name = nameCell.textContent.trim(); // Extract the name (e.g., "Maria")
+
+                        // Find all rows with the same name and update their inputs
+                        document.querySelectorAll("tr").forEach(otherRow => {
+                            const otherNameCell = otherRow.querySelector("th");
+                            
+                            if (otherNameCell && otherNameCell.textContent.trim() === name) {
+                                const otherInputs = otherRow.querySelectorAll("input");
+                                const currentInputs = row.querySelectorAll("input");
+
+                                // Copy values from the original row to the matching rows
+                                otherInputs.forEach((otherInput, index) => {
+                                    if (currentInputs[index]) {
+                                        otherInput.value = currentInputs[index].value;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
