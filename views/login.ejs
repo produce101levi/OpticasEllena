@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    <title>Login</title>
+</head>
+<body class="background">
+    <%- include('includes/menu') %>
+    <div class="column is-4 is-offset-4 login-wrapper">
+        <div class="box px-5 box-wrapper">
+            <div class="title has-text-centered">
+                Iniciar Sesión
+            </div>
+            <form action="/user/login" method="POST">
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" name="username" placeholder="Nombre de Usuario">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>  
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" name="contrasena" placeholder="Contraseña">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>  
+                    </p>
+                </div>
+                <div class="field">
+                    <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Iniciar Sesión">
+                </div>
+                <div class="field">
+                    <a class="button is-light is-medium is-fullwidth" href="#">Registrar Usuario</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+document.addEventListener("DOMContentLoaded", () => {
+            const total_venta = document.getElementById('total_venta');
+            const anticipo = document.getElementById('anticipo');
+            const saldo = document.getElementById('saldo');
+            
+            total_venta.addEventListener('input', () => {
+                saldo.value = total_venta.value - anticipo.value;
+            })
+            
+            anticipo.addEventListener('input', () => {
+                saldo.value = total_venta.value - anticipo.value;
+            })
+            
+            // Autorrellenado de nombres
+            for (let i = 0; i < 3; i++){
+                const textInput = document.getElementById(`paciente[${i}]`);
+                const textOutputD = document.getElementById(`output_d[${i}]`);
+                const textOutputI = document.getElementById(`output_i[${i}]`);
+                
+                textInput.addEventListener("input", () => {
+
+                    textOutputD.textContent = textInput.value;
+                    textOutputI.textContent = textInput.value;
+                })
+
+            }
+
+            const inputs = document.querySelectorAll('table input');
+
+            inputs.forEach(input => {
+                input.addEventListener('input', (event) => {
+                    const fila = event.target.closest('tr');
+                    const celdaNombre = fila.querySelector('th');
+                    
+                    const nombre = celdaNombre.textContent.trim();
+
+                    
+                    const otrasFilas = document.querySelectorAll('tr');
+                    
+                    otrasFilas.forEach(otraFila => {
+                        const otraCeldaNombre = otraFila.querySelector('th');
+                        const otroNombre = otraCeldaNombre.textContent.trim()
+                        // console.log(otraCeldaNombre.textContent.trim());
+                        
+                        if(otroNombre != "DERECHO" && otroNombre != "IZQUIERDO" && otroNombre === nombre){
+                            const otrosInputs = otraFila.querySelectorAll('input');
+                            const actualInputs = fila.querySelectorAll('input');
+
+                            otrosInputs.forEach((otroInput, index) => {
+                                if (actualInputs[index]){
+                                    otroInput.value = actualInputs[index].value;
+                                }
+                            })
+                        }
+
+                    })
+                    
+                    
+                    
+
+                })
+            })
+
+            
+
+        })
