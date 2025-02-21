@@ -1,0 +1,39 @@
+<div id="armazones_field"></div>
+<br>
+<div class="field is-horizontal">
+    <div class="field-body">
+        <div class="select mr-3">
+            <select name="metodo_pago" required>
+                <option value="">Forma de Pago</option>
+                <option <%= formData?.metodo_pago == 'Efectivo' ? 'selected' : '' %> >Efectivo</option>
+                <option <%= formData?.metodo_pago == 'Cheque' ? 'selected' : '' %> >Cheque</option>
+                <option <%= formData?.metodo_pago == 'Tarjeta de Crédito' ? 'selected' : '' %> >Tarjeta de Crédito</option>
+                <option <%= formData?.metodo_pago == 'Tarjeta de Débito' ? 'selected' : '' %> >Tarjeta de Débito</option>
+            </select>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="number" id="total_venta" name="total_venta" value="<%= formData?.total_venta %>" autocomplete="off" placeholder="Total de Compra">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="number" id="anticipo" name="anticipo" value="<%= formData?.anticipo %>" autocomplete="off" placeholder="Este Pago">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="number" id="saldo" name="saldo" value="<%= formData?.saldo %>" autocomplete="off" placeholder="Saldo">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-money-bill"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ exports.get_contratos = async (req, res, next) => {
 
         res.render('cartera', {contratos: formattedRows});
     } catch (error) {
-        console.error('Error consiguiendo cartera:', error);
+        console.error('[CARTERA]', error);
         res.status(500).send('Error de Servidor');
     }
 }
@@ -25,21 +25,42 @@ exports.get_tratamientos = async (req, res, next) => {
         req.tratamientos = rows;
         next();
     } catch(error) {
-        console.error(error);
+        console.error('[TRATAMIENTOS]', error);
         next(error);
-    }
+    } 
 }
 
 exports.get_armazones = async (req, res, next) => {
     try {
         const [rows] = await Contrato.get_armazones();
+        const error = req.session.error || '';
+        const formData = req.session.formData || {};
+
         // console.log('Armazones: ', rows);
+        req.session.error = null;
+        req.session.formData = null;
+
         res.render('crear_contrato', {
             armazones: rows,
             tratamientos: req.tratamientos,
+            error: error,
+            formData: formData,
         });
     } catch(error){
-        console.error(error);
+        console.error('[ARMAZONES]', error);
+    }
+}
+
+exports.get_json = async (req, res, next) => {
+    try {
+        const [armazones] = await Contrato.get_armazones();
+        const [tratamientos] = await Contrato.obtener_tratamientos();
+        return res.status(200).json({
+            armazones: armazones,
+            tratamientos: tratamientos,
+        });
+    } catch(error){
+        console.error('[JSON]', error);
     }
 }
 
@@ -50,14 +71,19 @@ exports.post_contrato = async (req, res, next) => {
             IDContrato, numero_armazones, fecha_venta, 
             total_venta, anticipo, saldo,
             fecha_entrega, fecha_recibido, metodo_pago, observaciones,
-            armazon, armazon2, armazon3, tratamiento, tratamiento2, tratamiento3,
-            esfera_d, esfera_i, cilindro_d, cilindro_i, eje_d, eje_i,
-            add_d, add_i, dip_d, dip_i, esfera_d2, esfera_i2, cilindro_d2, 
-            cilindro_i2, eje_d2, eje_i2, add_d2, add_i2, dip_d2, dip_i2,
-            esfera_d3, esfera_i3, cilindro_d3, cilindro_i3, eje_d3, eje_i3,
-            add_d3, add_i3, dip_d3, dip_i3
+            armazones, tipos_lentes, tratamientos, graduaciones,
+            paciente
         } = req.body;
-        console.log(req.body);
+        // console.log("BODY:",req.body);
+
+        req.session.formData = {
+            nombre, apellido, telefono, IDContrato, numero_armazones,
+            fecha_venta, total_venta, anticipo, saldo, fecha_entrega,
+            fecha_recibido, metodo_pago, observaciones, armazones,
+            tipos_lentes, tratamientos, graduaciones, paciente
+        };
+        
+        // console.log(req.body.graduaciones);
 
         // Función auxiliar para manejar campos de fecha vacíos
         const procesar_fecha = (fecha) => (fecha === "" || !fecha ? null : fecha);
@@ -75,63 +101,72 @@ exports.post_contrato = async (req, res, next) => {
         const panticipo = procesar_flotante(anticipo);
         const psaldo = procesar_flotante(saldo);
 
-        // Función auxiliar para conseguir ID de los 3 armazones
-        const get_IDArmazon = async (armazon) => {
-            const [marca, modelo, material, color] = armazon.split(" ");
-            if(armazon == "Armazón") return null;
+        // Crear Encargo y Agregar Contrato
+        const agregar_encargo = async (
+            nombre, apellido, telefono,
+            IDContrato, numero_armazones, fecha_venta, 
+            total_venta, anticipo, saldo,
+            fecha_entrega, fecha_recibido, metodo_pago, observaciones,
+            armazones, tipos_lentes, tratamientos, graduaciones,
+            pacientes
+        ) => {
+            // console.log("Tipo Lente", tipos_lentes);
+            console.log("Armazones", armazones);
+            for (let i = 0; i < armazones.length; i++){
+                let [marca, modelo, material, color] = armazones[i].split(" ");
+                if(armazones[i] == "Armazón"){
+                    marca = modelo = material = color = null;
+                    // console.log("null");
+                } 
 
-            // console.log("Atributos:", marca, modelo, material, color);
+                // console.log('CONTROLLER:', armazones[i]);
+                
+                const paciente = pacientes[i];
+                const tipo_lente = tipos_lentes[i];
+                const tratamiento = tratamientos[i];
+                const {
+                    esfera_d, esfera_i, cilindro_d, 
+                    cilindro_i, eje_d, eje_i, add_d, 
+                    add_i, dip_d, dip_i
+                } = graduaciones[i];
 
-            return await Contrato.get_IDArmazon(
-                marca, modelo, material, color
-            );
+                // console.log("[Controller] Graduaciones[i] =", graduaciones[i]);
 
-        }
 
-        // Obtener ID de Armazón
-        const [IDArmazon, IDArmazon2, IDArmazon3] = await Promise.all([
-            get_IDArmazon(armazon),
-            get_IDArmazon(armazon2),
-            get_IDArmazon(armazon3),
-        ])
+                await Contrato.agregar_encargo(
+                    nombre, apellido, telefono,
+                    IDContrato, numero_armazones, fecha_venta, 
+                    total_venta, anticipo, saldo,
+                    fecha_entrega, fecha_recibido, metodo_pago, observaciones,
+                    marca, modelo, material, color,
+                    tratamiento, esfera_d, esfera_i, cilindro_d, 
+                    cilindro_i, eje_d, eje_i, add_d, 
+                    add_i, dip_d, dip_i, i, tipo_lente, paciente
+                )
 
-        // console.log(IDArmazon, IDArmazon2, IDArmazon3);
 
-        // Obtener ID de Tratamiento
-        const get_IDTratamiento = async (tratamiento) => {
-            if(tratamiento == "Tratamientos"){
-                return null;
+
             }
 
-            return await Contrato.get_IDTratamiento(tratamiento);
         }
 
-        const [IDTratamiento, IDTratamiento2, IDTratamiento3] = await Promise.all([
-            get_IDTratamiento(tratamiento),
-            get_IDTratamiento(tratamiento2),
-            get_IDTratamiento(tratamiento3),
-        ])
-
-        // Agregar Graduaciones
-        const [rows] = await Contrato.add_graduacion(
-            esfera_d, esfera_i, cilindro_d, cilindro_i, eje_d, eje_i,
-            add_d, add_i, dip_d, dip_i
-        );
-
-        const [rows2] = await Contrato.add_graduacion(
-            esfera_d2, esfera_i2, cilindro_d2, cilindro_i2, eje_d2, eje_i2,
-            add_d2, add_i2, dip_d2, dip_i2
-        );
-
-        const [rows3] = await Contrato.add_graduacion(
-            esfera_d3, esfera_i3, cilindro_d3, cilindro_i3, eje_d3, eje_i3,
-            add_d3, add_i3, dip_d3, dip_i3
-        );
-
+        await agregar_encargo(
+            nombre, apellido, telefono,
+            IDContrato, pnumero_armazones, pfecha_venta, 
+            ptotal_venta, panticipo, psaldo,
+            pfecha_entrega, pfecha_recibido, metodo_pago, observaciones,
+            armazones, tipos_lentes, tratamientos, graduaciones,
+            paciente
+        )
 
         res.redirect('/user/empleado/cartera');
     } catch(error){
-        console.error(error);
+        console.error('[CONTRATO]', error);
+        if(error.code === 'ER_DUP_ENTRY'){
+            console.log("Contrato ya existe");
+            req.session.error = 'Contrato ya existe';
+            res.redirect('/user/empleado/crear-contrato');
+        }
     }
 }
 

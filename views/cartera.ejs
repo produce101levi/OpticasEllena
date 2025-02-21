@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartera</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@2/css/all.min.css">
 </head>
 <body>
     <%- include('includes/menu') %>
@@ -58,7 +57,6 @@
 
     <script>
         const buscar_contrato = () => {
-            console.log("Buscando...");
             const valor_busqueda = document.getElementById('buscar').value;
             fetch('/user/empleado/cartera/buscar/' + valor_busqueda, {
                 method: 'GET',
