@@ -26,7 +26,7 @@ exports.postLogin = async (req, res, next) => {
             // console.log(users);
             if(users.length == 1){
                 const user = users[0];
-                console.log(user);
+                // console.log(user);
                 req.session.name = user.nombre;
                 req.session.sesionIniciada = true;
                 return res.redirect('/');
