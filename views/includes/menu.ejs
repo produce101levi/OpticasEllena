@@ -17,10 +17,13 @@
             <a href="/" class="navbar-item">
             Home
             </a>
+
+            <% if (name) { %>
   
             <a class="navbar-item">
                 Usuario
             </a>
+            <% } %>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -30,6 +33,7 @@
                     <a class="navbar-item">
                         Citas
                     </a>
+                    <% if (name) { %>
                     <a class="navbar-item">
                         Contratos
                     </a>
@@ -42,9 +46,11 @@
                     <a class="navbar-item">
                         Entregas
                     </a>
+                    <% } %>
                 </div>
             </div>
-
+            
+            <% if (name) { %>
             <a class="navbar-item">
                 Inventario
             </a>
@@ -62,7 +68,9 @@
             <a class="navbar-item">
                 Configuraciones
             </a>
+            <% } %>
         </div>
+        
   
         <div class="navbar-end">
             <div class="navbar-item">
