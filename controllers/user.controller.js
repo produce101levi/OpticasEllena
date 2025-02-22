@@ -44,3 +44,13 @@ exports.postLogin = async (req, res, next) => {
         console.log(error);
     }
 }
+
+exports.getLogout = async (req, res, next) => {
+    try {
+        req.session.destroy(() => {
+            return res.redirect('/user/login');
+        });
+    } catch (error){
+        console.log(error);
+    }
+}
