@@ -55,3 +55,18 @@ exports.getLogout = async (req, res, next) => {
         console.log(error);
     }
 }
+
+exports.getRegistrar = async (req, res, next) => {
+    try {
+        const error = req.session.error || '';
+
+        req.session.error = null;
+        res.render('login', {
+            name: req.session.name,
+            error: error,
+            registrar: true,
+        });
+    } catch(error){
+        console.log(error);
+    }
+}
