@@ -28,6 +28,7 @@ exports.postLogin = async (req, res, next) => {
                 const user = users[0];
                 console.log(user);
                 req.session.name = user.nombre;
+                req.session.sesionIniciada = true;
                 return res.redirect('/');
                 // bcrypt.compare(req.body.password, user.contrasena)
                 // .then(doMatch => {
