@@ -7,6 +7,7 @@ exports.getLogin = async (req, res, next) => {
 
         req.session.error = null;
         res.render('login', {
+            name: req.session.name,
             error: error,
             registrar: false,
         });
@@ -26,10 +27,7 @@ exports.postLogin = async (req, res, next) => {
             if(users.length == 1){
                 const user = users[0];
                 console.log(user);
-                if (!user.contrasena){
-                    req.session.error = "Usuario no tiene contraseña";
-                    return res.redirect('/user/login');
-                }
+                req.session.name = user.nombre;
                 return res.redirect('/');
                 // bcrypt.compare(req.body.password, user.contrasena)
                 // .then(doMatch => {

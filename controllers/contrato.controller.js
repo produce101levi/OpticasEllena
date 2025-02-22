@@ -12,7 +12,10 @@ exports.get_contratos = async (req, res, next) => {
             fecha_recibido: new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium' }).format(new Date(contrato.fecha_recibido)),
         }));
 
-        res.render('cartera', {contratos: formattedRows});
+        res.render('cartera', {
+            contratos: formattedRows,
+            name: req.session.name,
+        });
     } catch (error) {
         console.error('[CARTERA]', error);
         res.status(500).send('Error de Servidor');
@@ -42,6 +45,7 @@ exports.get_armazones = async (req, res, next) => {
 
         res.render('crear_contrato', {
             armazones: rows,
+            name: req.session.name,
             tratamientos: req.tratamientos,
             error: error,
             formData: formData,
