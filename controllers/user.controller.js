@@ -27,7 +27,7 @@ exports.postLogin = async (req, res, next) => {
                 const user = users[0];
                 console.log(user);
                 if (!user.contrasena){
-                    request.session.error = "Usuario no tiene contraseña";
+                    req.session.error = "Usuario no tiene contraseña";
                     return res.redirect('/user/login');
                 }
                 return res.redirect('/');
@@ -37,6 +37,9 @@ exports.postLogin = async (req, res, next) => {
                 //         return req.redirect('/');
                 //     }
                 // });
+            } else {
+                req.session.error = "Usuario o contraseña incorrecto(s)";
+                return res.redirect('/user/login');
             }
         })
     } catch(error){
