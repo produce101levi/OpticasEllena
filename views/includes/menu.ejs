@@ -68,14 +68,19 @@
             <div class="navbar-item">
                 <div class="buttons">
                     <% if (!name) {%>
-                    <a class="button is-danger-dark">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a href="/user/login" class="button is-light">
-                        Log in
-                    </a>
+                        <a class="button is-danger-dark">
+                            <strong>Registrarse</strong>
+                        </a>
+                        <a href="/user/login" class="button is-light">
+                            Iniciar Sesión
+                        </a>
                     <% } else { %>
-                        Bienvenid@, <%= name %>
+                        <p>
+                            Bienvenid@, <strong><%= name %></strong>
+                        </p>
+                        <a href="/user/logout" class="button is-danger-dark">
+                            Cerrar Sesión
+                        </a>
                     <% } %>
                 </div>
             </div>
