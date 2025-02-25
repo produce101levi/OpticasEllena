@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
-    <title>Login</title>
+    <title><%if (registrar) {%> Registrar Usuario <% } else { %> Login <% } %></title>
 </head>
 <body class="background">
     <%- include('includes/menu') %>
