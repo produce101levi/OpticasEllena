@@ -67,6 +67,35 @@ exports.getRegistrar = async (req, res, next) => {
             registrar: true,
         });
     } catch(error){
-        console.log(error);
+        console.log("[GET REGISTRAR]", error);
+    }
+}
+
+exports.postRegistrar = async (req, res, next) => {
+    try {
+        const nuevoUsuario = new Usuario(
+            req.body.username, req.body.nombre, req.body.apellido,
+            req.body.telefono, req.body.correo, req.body.fecha_nacimiento,
+            req.body.contrasena
+        );
+
+        const confirmar = req.body.confirmar_contrasena;
+        if (confirmar != req.body.contrasena){
+            req.session.error = "No has confirmado correctamente tu contraseña.";
+            return res.redirect('/user/registrar');
+        }
+
+        nuevoUsuario.registrarUsuario()
+            .then(([rows, fieldData]) => {
+                res.redirect('/user/login');
+            })
+            .catch((error) => {
+                console.log("[NUEVOUSUARIO POST]", error);
+                req.session.error = "Ha ocurrido un error registrando el usuario.";
+                res.redirect('/user/registrar');
+            })
+
+    } catch(error){
+        console.log("[POST REGISTRAR]", error);
     }
 }
