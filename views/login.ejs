@@ -28,6 +28,48 @@
                         </span>  
                     </p>
                 </div>
+                <% if (registrar) { %>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" name="nombre" placeholder="Nombre(s)" autocomplete="off">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" name="apellido" placeholder="Apellido(s)">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" name="telefono" placeholder="Teléfono" autocomplete="off">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-phone"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" name="correo" placeholder="Correo">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-at"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>  
+                        </p>
+                    </div>
+                <% } %>
                 <div class="field">
                     <p class="control has-icons-left">
                         <input class="input" type="password" name="contrasena" placeholder="Contraseña">
@@ -36,6 +78,16 @@
                         </span>  
                     </p>
                 </div>
+                <% if (registrar) {%>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>  
+                        </p>
+                    </div>
+                <% } %>
                 
                 <div class="field">
                     <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value= <% if (registrar) { %> "Registrar" <% } else { %> "Iniciar Sesión" <% } %>>
