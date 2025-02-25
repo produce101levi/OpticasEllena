@@ -18,15 +18,17 @@ module.exports = class Usuario {
     }
 
     registrarUsuario(){
-        return db.execute(
-            `INSERT INTO usuarios(
-                username, contrasena, nombre, apellido, telefono, 
-                correo, fecha_nacimiento
-            ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [this.username, this.contrasena, this.nombre, this.apellido, this.telefono,
-            this.correo, this.fecha_nacimiento]
-        )
+        return bcrypt.hash(this.contrasena, 12).then((contrasenaCifrada) => {
+            return db.execute(
+                `INSERT INTO usuarios(
+                    username, contrasena, nombre, apellido, telefono, 
+                    correo, fecha_nacimiento
+                ) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                [this.username, contrasenaCifrada, this.nombre, this.apellido, this.telefono,
+                this.correo, this.fecha_nacimiento]);
+        })
+        
     }
 
 
