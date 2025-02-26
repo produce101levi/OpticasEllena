@@ -25,15 +25,25 @@
             </a>
             <% } %>
 
+            <% if (name) { %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Citas
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a href="" class="navbar-item">
+                            Agendar Cita
+                        </a>
+                    </div>
+            </div>
+            
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     Cliente
                 </a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        Citas
-                    </a>
-                    <% if (name) { %>
+                    
+                    
                     <a class="navbar-item">
                         Contratos
                     </a>
@@ -46,11 +56,9 @@
                     <a class="navbar-item">
                         Entregas
                     </a>
-                    <% } %>
                 </div>
             </div>
             
-            <% if (name) { %>
             <a class="navbar-item">
                 Inventario
             </a>
