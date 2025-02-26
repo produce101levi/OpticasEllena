@@ -26,12 +26,15 @@ exports.postLogin = async (req, res, next) => {
             if(users.length == 1){
                 const user = users[0];
                 console.log(user);
-                req.session.name = user.nombre;
-                req.session.sesionIniciada = true;
                 bcrypt.compare(req.body.contrasena, user.contrasena)
                 .then(doMatch => {
                     if (doMatch){
+                        req.session.name = user.nombre;
+                        req.session.sesionIniciada = true;
                         return res.redirect('/');
+                    } else {
+                        req.session.error = "Usuario o contraseña incorrecto(s)";
+                        return res.redirect('/user/login');
                     }
                 });
             } else {
