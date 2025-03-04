@@ -15,66 +15,67 @@
                 Agendar Cita
             </div>
             <form action="/user/cliente/agendar_cita" method="POST">
-                <!-- <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" name="nombre" placeholder="Nombre(s)" autocomplete="off">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" name="apellido" placeholder="Apellido(s)">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" name="telefono" placeholder="Teléfono" autocomplete="off">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-phone"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" name="correo" placeholder="Correo">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-at"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-calendar"></i>
-                        </span>  
-                    </p>
-                </div> -->
-                <% if(self) { %>
-                    <div class="columns is-vcentered">
-                        <div class="column">
-                            <div class="info-usuario my-2">
-                                <strong><%= user.nombre %> <%= user.apellido %>
-                                <br>
-                                <%= user.telefono %>
-                                <br>
-                                <%= user.correo %>
-                                <br>
-                                <%= user.fecha_nacimiento %>
-                                </strong>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <button class="tag is-danger is-light">Quiero agendar para alguien más</button>
-                        </div>
-
+            <!-- <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" name="nombre" placeholder="Nombre(s)" autocomplete="off">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>  
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" name="apellido" placeholder="Apellido(s)">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>  
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" name="telefono" placeholder="Teléfono" autocomplete="off">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-phone"></i>
+                    </span>  
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" name="correo" placeholder="Correo">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-at"></i>
+                    </span>  
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left">
+                    <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-calendar"></i>
+                    </span>  
+                </p>
+            </div> -->
+            <div id="infoPropio" class="columns is-vcentered">
+                <div class="column">
+                    <div class="info-usuario my-2">
+                        <strong><%= user.nombre %> <%= user.apellido %>
+                            <br>
+                            <%= user.telefono %>
+                            <br>
+                            <%= user.correo %>
+                            <br>
+                            <%= user.fecha_nacimiento %>
+                        </strong>
                     </div>
-                <% } %>
+                </div>
+                <div class="column">
+                    <strong><a id="botonPropio" onclick="cambiarPropio()" class="is-danger-dark-text">Quiero agendar para alguien más</a></strong>
+                </div>
+                
+            </div>
+                <div class="field" id="otroUsuario">
+
+                </div>
                 <div class="field">
                     <p class="control has-icons-left">
                         <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
@@ -97,5 +98,67 @@
             </form>
         </div>
     </div>
+    
+    <script>
+        const cambiarPropio = () => {
+            const otroUsuario = document.getElementById("otroUsuario");
+            const infoPropio = document.getElementById("infoPropio");
+            fetch('/user/cliente/agendar-cita/otro-usuario', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(result => result.json())
+            .then(data => {
+                let html = "";
+                html+=`
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="text" name="nombre" placeholder="Nombre">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="text" name="apellido" placeholder="Apellido">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="text" name="telefono" placeholder="Teléfono">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-phone"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="text" name="correo" placeholder="Correo electrónico">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-at"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>  
+                        </p>
+                    </div>
+                `
+                otroUsuario.innerHTML = html;
+                infoPropio.innerHTML = "";
+            })
+        }
+
+    </script>
 </body>
 </html>
