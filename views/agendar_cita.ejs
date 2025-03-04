@@ -41,7 +41,7 @@
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="datetime-local" name="correo" placeholder="Correo">
+                        <input class="input" type="text" name="correo" placeholder="Correo">
                         <span class="icon is-small is-left">
                             <i class="fas fa-at"></i>
                         </span>  
@@ -55,6 +55,42 @@
                         </span>  
                     </p>
                 </div> -->
+                <% if(self) { %>
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <div class="info-usuario my-2">
+                                <strong><%= user.nombre %> <%= user.apellido %>
+                                <br>
+                                <%= user.telefono %>
+                                <br>
+                                <%= user.correo %>
+                                <br>
+                                <%= user.fecha_nacimiento %>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <button class="tag is-danger is-light">Quiero agendar para alguien más</button>
+                        </div>
+
+                    </div>
+                <% } %>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-calendar"></i>
+                        </span>  
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" name="notas" placeholder="Notas">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-at"></i>
+                        </span>  
+                    </p>
+                </div>
                 <div class="field">
                     <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Guardar">
                 </div>

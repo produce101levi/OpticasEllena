@@ -5,6 +5,10 @@
     color: #fff;
 }
 
+.is-danger-dark-text {
+    color:#700000;
+}
+
 .box-wrapper {
     padding-top: 80px;
     padding-bottom: 80px;
