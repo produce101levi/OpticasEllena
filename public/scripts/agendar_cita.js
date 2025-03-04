@@ -62,7 +62,7 @@ const cambiarPropio = () => {
 const cambiarOtro = () => {
     const otroUsuario = document.getElementById("otroUsuario");
     const infoPropio = document.getElementById("infoPropio");
-    fetch('/user/cliente/agendar-cita/otro-usuario', {
+    fetch('/user/cliente/agendar-cita/propio-usuario', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
