@@ -30,6 +30,7 @@ exports.postLogin = async (req, res, next) => {
                 .then(doMatch => {
                     if (doMatch){
                         req.session.name = user.nombre;
+                        req.session.username = user.username;
                         req.session.sesionIniciada = true;
                         return res.redirect('/');
                     } else {
