@@ -15,13 +15,27 @@ exports.getAgendarCita = async (req, res, next) => {
             // console.log(user);
             res.render('agendar_cita', {
                 confirmed: false,
-                self: true,
+                propio: true,
                 user: user,
                 name: req.session.name,  
                 error: req.session.error
             });
         });
-    } catch {
+    } catch(error) {
+        console.log(error);
+    }
+}
 
+exports.getAgendarOtro = async (req, res, next) => {
+    try {
+        return res.status(200).json({
+            confirmed: false,
+            propio: false,
+            user: null,
+            name: req.session.name,  
+            error: req.session.error
+        });
+    } catch(error) {
+        console.log(error);
     }
 }

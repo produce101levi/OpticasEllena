@@ -18,8 +18,6 @@ exports.getLogin = async (req, res, next) => {
 
 exports.postLogin = async (req, res, next) => {
     try {
-        console.log("Username:", req.body.username);
-        console.log("Password:", req.body.contrasena);
         Usuario.validarUsuario(req.body.username)
         .then(([users, fieldData]) => {
             // console.log(users);
