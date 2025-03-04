@@ -38,4 +38,11 @@ module.exports = class Usuario {
             SELECT * FROM usuarios WHERE username = ?
         `, [username]);
     }
+
+    static async getInfoUsuario(username){
+        return db.execute(`
+            SELECT nombre, apellido, telefono, correo, fecha_nacimiento 
+            FROM usuarios WHERE username = ?
+        `, [username]);
+    }
 }

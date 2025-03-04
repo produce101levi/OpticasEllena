@@ -24,6 +24,9 @@ app.use('/user/empleado', rutasEmpleado)
 const rutasUser = require("./routes/user.routes")
 app.use('/user', rutasUser)
 
+const rutasCliente = require("./routes/cliente.routes")
+app.use('/user/cliente', rutasCliente)
+
 app.use(express.static('public'));
 
 const port = 3000;
