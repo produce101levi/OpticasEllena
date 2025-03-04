@@ -28,13 +28,22 @@ exports.getAgendarCita = async (req, res, next) => {
 
 exports.getAgendarOtro = async (req, res, next) => {
     try {
-        return res.status(200).json({
-            confirmed: false,
-            propio: false,
-            user: null,
-            name: req.session.name,  
-            error: req.session.error
-        });
+        Usuario.getInfoUsuario(req.session.username)
+        .then(([users, fieldData]) => {
+            // console.log(users);
+            const userFormato = users.map(user => ({
+                ...user,
+                fecha_nacimiento: new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium' }).format(new Date(user.fecha_nacimiento)),
+            }));
+            const user = userFormato[0];
+            return res.status(200).json({
+                confirmed: false,
+                propio: false,
+                user: user,
+                name: req.session.name,  
+                error: req.session.error
+            });
+        })
     } catch(error) {
         console.log(error);
     }
