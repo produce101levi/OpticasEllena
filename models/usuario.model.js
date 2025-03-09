@@ -35,8 +35,8 @@ module.exports = class Usuario {
     static validarUsuario(username){
         // console.log("MODEL Username:", username);
         return db.execute(`
-            SELECT * FROM usuarios WHERE username = ?
-        `, [username]);
+            SELECT * FROM usuarios WHERE username = ? OR correo = ?
+        `, [username, username]);
     }
 
     static async getInfoUsuario(username){

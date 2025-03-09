@@ -13,6 +13,7 @@ exports.getAgendarCita = async (req, res, next) => {
             }));
             const user = userFormato[0];
             // console.log(user);
+            req.session.propio = true;
             res.render('agendar_cita', {
                 confirmed: false,
                 propio: req.session.propio,
