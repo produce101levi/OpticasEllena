@@ -23,7 +23,7 @@ exports.postLogin = async (req, res, next) => {
             // console.log(users);
             if(users.length == 1){
                 const user = users[0];
-                console.log(user);
+                // console.log(user);
                 bcrypt.compare(req.body.contrasena, user.contrasena)
                 .then(doMatch => {
                     if (doMatch){
