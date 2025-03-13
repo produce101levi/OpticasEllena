@@ -80,7 +80,7 @@ exports.postAgendarPropio = async (req, res, next) => {
             }));
             const usuarioActual = usuarioFormato[0];
             if (req.body.fecha_cita === '') req.body.fecha_cita = null;
-            Cita.agendarCitaPropio(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita);
+            Cita.agendarCita(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita);
 
         });
     } catch (error){
@@ -90,7 +90,7 @@ exports.postAgendarPropio = async (req, res, next) => {
 
 exports.postAgendarOtro = async (req, res, next) => {
     try {
-        
+        console.log(req.body);
     } catch(error){
         console.log(error)
     }
