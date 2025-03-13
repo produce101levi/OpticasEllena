@@ -5,8 +5,28 @@
     color: #fff;
 }
 
+.is-danger-dark:hover {
+    background-color: #500000;
+    color: #fff;
+}
+
 .is-danger-dark-text {
     color:#700000;
+}
+
+.cita-popup {
+    background-color: #700000;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+.cita-popup:hover {
+    background-color: #500000;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
 }
 
 .box-wrapper {

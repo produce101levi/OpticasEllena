@@ -18,7 +18,6 @@ exports.getAgendarCita = async (req, res, next) => {
             res.render('agendar_cita', {
                 confirmed: false,
                 edad: edad,
-                propio: req.session.propio,
                 user: user,
                 name: req.session.name,  
                 error: req.session.error
@@ -34,7 +33,6 @@ exports.getAgendarOtro = async (req, res, next) => {
             req.session.propio = false;
             return res.status(200).json({
                 confirmed: false,
-                propio: req.session.propio,
                 name: req.session.name,  
                 error: req.session.error
             });
@@ -58,7 +56,6 @@ exports.getAgendarPropio = async (req, res, next) => {
             return res.status(200).json({
                 edad: edad,
                 confirmed: false,
-                propio: req.session.propio,
                 user: user,
                 name: req.session.name,  
                 error: req.session.error
@@ -80,7 +77,11 @@ exports.postAgendarPropio = async (req, res, next) => {
             }));
             const usuarioActual = usuarioFormato[0];
             if (req.body.fecha_cita === '') req.body.fecha_cita = null;
-            Cita.agendarCita(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita);
+            Cita.agendarCita(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita)
+            .then(() => {
+                req.session.citaConfirmada = true;
+                res.redirect('/');
+            });
 
         });
     } catch (error){
@@ -93,7 +94,9 @@ exports.postAgendarOtro = async (req, res, next) => {
         Cita.agendarCita(
             req.session.username, req.body.nombre, req.body.apellido, req.body.telefono,
             req.body.edad, req.body.fecha_cita
-        );
+        ).then(() => {
+            res.redirect('/');
+        });
     } catch(error){
         console.log(error)
     }
