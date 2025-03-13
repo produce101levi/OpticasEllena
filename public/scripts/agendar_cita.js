@@ -1,3 +1,4 @@
+// Cambiar vista a "Agendar otro"
 const cambiarPropio = () => {
     const otroUsuario = document.getElementById("otroUsuario");
     const infoPropio = document.getElementById("infoPropio");
@@ -16,7 +17,7 @@ const cambiarPropio = () => {
                 <br><br>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="text" name="nombre" placeholder="Nombre">
+                        <input class="input" type="text" onfocus="text" name="nombre" placeholder="Nombre" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>  
@@ -24,7 +25,7 @@ const cambiarPropio = () => {
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="text" name="apellido" placeholder="Apellido">
+                        <input class="input" type="text" onfocus="text" name="apellido" placeholder="Apellido" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>  
@@ -32,7 +33,7 @@ const cambiarPropio = () => {
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="text" name="telefono" placeholder="Teléfono">
+                        <input class="input" type="text" onfocus="text" name="telefono" placeholder="Teléfono" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-phone"></i>
                         </span>  
@@ -40,17 +41,17 @@ const cambiarPropio = () => {
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" name="edad" placeholder="Edad(es)">
+                        <input class="input" type="text" name="edad" placeholder="Edad(es)" autocomplete="off">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-calendar"></i>
+                            <i class="fas fa-hashtag"></i>
                         </span>  
                     </p>
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora" required>
+                        <input class="input" type="datetime-local" name="fecha_cita" placeholder="Fecha y Hora" autocomplete="off" required>
                         <span class="icon is-small is-left">
-                            <i class="fas fa-calendar"></i>
+                            <i class="fas fa-clock"></i>
                         </span>  
                     </p>
                 </div>
@@ -61,9 +62,19 @@ const cambiarPropio = () => {
         `
         otroUsuario.innerHTML = html;
         infoPropio.innerHTML = "";
+        setTimeout(() => {
+            flatpickr("input[type=datetime-local]", {
+                enableTime: true,
+                minTime: "11:00",
+                maxTime: "18:00",
+                minDate: new Date(),
+                minuteIncrement: 30,
+            });
+        })
     })
 }
 
+// Cambiar vista de vuelta a "Agendar Propio"
 const cambiarOtro = () => {
     const otroUsuario = document.getElementById("otroUsuario");
     const infoPropio = document.getElementById("infoPropio");
@@ -96,9 +107,9 @@ const cambiarOtro = () => {
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora" required>
+                    <input class="input" type="datetime-local" name="fecha_cita" placeholder="Fecha y Hora" required>
                     <span class="icon is-small is-left">
-                        <i class="fas fa-calendar"></i>
+                        <i class="fas fa-clock"></i>
                     </span>  
                 </p>
             </div>
@@ -109,5 +120,15 @@ const cambiarOtro = () => {
         `
         otroUsuario.innerHTML = "";
         infoPropio.innerHTML = html;
+
+        setTimeout(() => {
+            flatpickr("input[type=datetime-local]", {
+                enableTime: true,
+                minTime: "11:00",
+                maxTime: "18:00",
+                minDate: new Date(),
+                minuteIncrement: 30,
+            });
+        })
     })
 }

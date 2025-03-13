@@ -10,7 +10,7 @@
 </head>
 <body>
     <%- include('./includes/menu.ejs') %>
-    <div class="column is-4 is-offset-4 my-6">
+    <div id="citas" class="column is-4 is-offset-4 my-6">
         <div class="box px-5 py-6">
             <div class="title has-text-centered">
                 Agendar Cita
@@ -66,6 +66,8 @@
             enableTime: true,
             minTime: "11:00",
             maxTime: "18:00",
+            minDate: new Date(),
+            minuteIncrement: 30,
         });
     </script>
 </body>
