@@ -90,7 +90,10 @@ exports.postAgendarPropio = async (req, res, next) => {
 
 exports.postAgendarOtro = async (req, res, next) => {
     try {
-        console.log(req.body);
+        Cita.agendarCita(
+            req.session.username, req.body.nombre, req.body.apellido, req.body.telefono,
+            req.body.edad, req.body.fecha_cita
+        );
     } catch(error){
         console.log(error)
     }

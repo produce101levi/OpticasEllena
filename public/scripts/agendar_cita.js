@@ -40,7 +40,7 @@ const cambiarPropio = () => {
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                        <input class="input" type="text" name="edad" placeholder="Edad(es)">
                         <span class="icon is-small is-left">
                             <i class="fas fa-calendar"></i>
                         </span>  
