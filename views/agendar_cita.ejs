@@ -14,7 +14,7 @@
             <div class="title has-text-centered">
                 Agendar Cita
             </div>
-            <form action="/user/cliente/agendar_cita" method="POST">
+            <form action="/user/cliente/agendar-cita" method="POST">
                 <div id="infoPropio" class="columns is-vcentered">
                     <div class="column">
                         <div class="info-usuario my-2">
@@ -22,9 +22,7 @@
                                 <br>
                                 <%= user.telefono %>
                                 <br>
-                                <%= user.correo %>
-                                <br>
-                                <%= user.fecha_nacimiento %>
+                                <%= edad %> años
                             </strong>
                         </div>
                     </div>
@@ -41,14 +39,6 @@
                         <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
                         <span class="icon is-small is-left">
                             <i class="fas fa-calendar"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" name="notas" placeholder="Notas">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-at"></i>
                         </span>  
                     </p>
                 </div>

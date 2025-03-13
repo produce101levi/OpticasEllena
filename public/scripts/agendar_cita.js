@@ -39,14 +39,6 @@ const cambiarPropio = () => {
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="text" onfocus="text" name="correo" placeholder="Correo electrónico">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-at"></i>
-                    </span>  
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
                     <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
                     <span class="icon is-small is-left">
                         <i class="fas fa-calendar"></i>
@@ -79,9 +71,7 @@ const cambiarOtro = () => {
                         <br>
                         ${data.user.telefono}
                         <br>
-                        ${data.user.correo}
-                        <br>
-                        ${data.user.fecha_nacimiento}
+                        ${data.edad} años
                     </strong>
                 </div>
             </div>
