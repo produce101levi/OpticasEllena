@@ -48,7 +48,7 @@ const cambiarPropio = () => {
                 </div>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
+                        <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora" required>
                         <span class="icon is-small is-left">
                             <i class="fas fa-calendar"></i>
                         </span>  
@@ -96,7 +96,7 @@ const cambiarOtro = () => {
             </div>
             <div class="field">
                 <p class="control has-icons-left">
-                    <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
+                    <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora" required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-calendar"></i>
                     </span>  

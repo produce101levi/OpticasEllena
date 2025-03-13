@@ -10,6 +10,11 @@
 </head>
 <body>
     <%- include('includes/menu') %>
+    <% if(cita) { %>
+    <a href="#" class="notification is-radiusless cita-popup has-text-centered">
+        <strong>Tienes una cita agendada con nosotros!</strong>
+    </a>
+    <% } %>
     <figure class="image">
         <img src="https://images.inc.com/uploaded_files/image/1920x1080/getty_628497968_386333.jpg" />
     </figure>
