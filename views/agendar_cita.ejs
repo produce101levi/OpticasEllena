@@ -14,37 +14,42 @@
             <div class="title has-text-centered">
                 Agendar Cita
             </div>
-            <form action="/user/cliente/agendar-cita" method="POST">
-                <div id="infoPropio" class="columns is-vcentered">
-                    <div class="column">
-                        <div class="info-usuario my-2">
-                            <strong><%= user.nombre %> <%= user.apellido %>
-                                <br>
-                                <%= user.telefono %>
-                                <br>
-                                <%= edad %> años
-                            </strong>
+            <div id="infoPropio">
+                <form action="/user/cliente/agendar-cita/propio-usuario" method="POST">
+
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <div class="info-usuario my-2">
+                                <strong><%= user.nombre %> <%= user.apellido %>
+                                    <br>
+                                    <%= user.telefono %>
+                                    <br>
+                                    <%= edad %> años
+                                </strong>
+                            </div>
                         </div>
+                        <div class="column">
+                            <strong><a id="botonPropio" onclick="cambiarPropio()" class="is-danger-dark-text">Quiero agendar para alguien más</a></strong>
+                        </div>
+                        
                     </div>
-                    <div class="column">
-                        <strong><a id="botonPropio" onclick="cambiarPropio()" class="is-danger-dark-text">Quiero agendar para alguien más</a></strong>
+
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>  
+                        </p>
                     </div>
-                    
+                    <div class="field">
+                        <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Guardar">
+                    </div>
                 </div>
                 <div class="field" id="otroUsuario">
 
                 </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="text" onfocus="(this.type = 'datetime-local')" onblur="(this.type = 'text')" name="fecha_cita" placeholder="Fecha y Hora">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-calendar"></i>
-                        </span>  
-                    </p>
-                </div>
-                <div class="field">
-                    <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Guardar">
-                </div>
+                
             </form>
         </div>
     </div>

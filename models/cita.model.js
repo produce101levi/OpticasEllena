@@ -4,8 +4,7 @@ const Usuario = require('./usuario.model');
 
 module.exports = class Cita {
 
-
-    static async agendarCitaPropio(username, nombre, apellido, telefono, 
+    static async agendarCita(username, nombre, apellido, telefono, 
         edad, fecha_hora_cita){
             const IDCliente = await Cliente.agregar_cliente(nombre, apellido, telefono);
             const IDUsuario = await Usuario.getIDUsuario(username);
