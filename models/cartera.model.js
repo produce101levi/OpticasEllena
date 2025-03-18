@@ -203,4 +203,12 @@ module.exports = class Contrato {
             ORDER BY CAST(SUBSTRING_INDEX(IDContrato, '-', 1) AS UNSIGNED); 
         `, ['%' + valor_busqueda + '%', '%' + valor_busqueda + '%'])
     }
+
+    static async getInfoCliente(username, IDUsuario){
+        return db.execute(`
+            SELECT nombre, apellido, edad, fecha_hora  
+            FROM clientes cl 
+            INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
+        `)
+    }
 }

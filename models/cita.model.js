@@ -17,8 +17,8 @@ module.exports = class Cita {
     }
 
     static async getInfoCitasCliente(username){
-        const [infoCliente] = await Cliente.getInfoCliente;
         const IDUsuario = Usuario.getIDUsuario;
+        const [infoCliente] = await Cliente.getInfoCliente(username, IDUsuario);
         console.log(infoCliente);
         console.log(IDUsuario);
     }
