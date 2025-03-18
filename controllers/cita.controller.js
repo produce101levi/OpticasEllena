@@ -20,7 +20,8 @@ exports.getAgendarCita = async (req, res, next) => {
                 edad: edad,
                 user: user,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
         });
     } catch(error) {
@@ -34,7 +35,8 @@ exports.getAgendarOtro = async (req, res, next) => {
             return res.status(200).json({
                 confirmed: false,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
     } catch(error) {
         console.log(error);
@@ -58,7 +60,8 @@ exports.getAgendarPropio = async (req, res, next) => {
                 confirmed: false,
                 user: user,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
         })
     } catch(error) {
