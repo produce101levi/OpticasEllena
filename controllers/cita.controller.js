@@ -105,5 +105,12 @@ exports.postAgendarOtro = async (req, res, next) => {
 
 // Middleware para conseguir información de cita propia de usuario
 exports.getConsultarCitaPropia = async (req, res, next) => {
-    
+    try {
+        res.render('consultar_cita_propia', {
+            name: req.session.name,
+            username: req.session.username
+        })
+    } catch(error){
+        console.log(error)
+    }
 }

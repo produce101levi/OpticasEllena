@@ -64,7 +64,6 @@ exports.get_json = async (req, res, next) => {
         return res.status(200).json({
             armazones: armazones,
             tratamientos: tratamientos,
-            username: req.session.username
         });
     } catch(error){
         console.error('[JSON]', error);
