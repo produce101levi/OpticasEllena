@@ -66,7 +66,7 @@ const cambiarPropio = () => {
             flatpickr("input[type=datetime-local]", {
                 enableTime: true,
                 minTime: "11:00",
-                maxTime: "18:00",
+                maxTime: "18:30",
                 minDate: new Date(),
                 minuteIncrement: 30,
             });
@@ -125,7 +125,7 @@ const cambiarOtro = () => {
             flatpickr("input[type=datetime-local]", {
                 enableTime: true,
                 minTime: "11:00",
-                maxTime: "18:00",
+                maxTime: "18:30",
                 minDate: new Date(),
                 minuteIncrement: 30,
             });

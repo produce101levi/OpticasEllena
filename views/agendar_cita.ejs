@@ -65,9 +65,20 @@
         flatpickr("input[type=datetime-local]", {
             enableTime: true,
             minTime: "11:00",
-            maxTime: "18:00",
+            maxTime: "18:30",
             minDate: new Date(),
             minuteIncrement: 30,
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                    longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                },
+                months: {
+                    shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                }
+            }
         });
     </script>
 </body>
