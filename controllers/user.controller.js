@@ -18,20 +18,23 @@ exports.getLogin = async (req, res, next) => {
 
 exports.postLogin = async (req, res, next) => {
     try {
-        console.log("Username:", req.body.username);
-        console.log("Password:", req.body.contrasena);
         Usuario.validarUsuario(req.body.username)
         .then(([users, fieldData]) => {
             // console.log(users);
             if(users.length == 1){
                 const user = users[0];
-                console.log(user);
-                req.session.name = user.nombre;
-                req.session.sesionIniciada = true;
+                // console.log(user);
                 bcrypt.compare(req.body.contrasena, user.contrasena)
                 .then(doMatch => {
                     if (doMatch){
+                        req.session.name = user.nombre;
+                        req.session.username = user.username;
+                        req.session.id = user.ID;
+                        req.session.sesionIniciada = true;
                         return res.redirect('/');
+                    } else {
+                        req.session.error = "Usuario o contraseña incorrecto(s)";
+                        return res.redirect('/user/login');
                     }
                 });
             } else {

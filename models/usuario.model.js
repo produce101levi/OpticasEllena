@@ -31,11 +31,37 @@ module.exports = class Usuario {
         
     }
 
+    static async getIDUsuario(username){
+        const [resultado] = await db.execute(` 
+            SELECT IDUsuario FROM usuarios WHERE username = ?`, [username]
+        );
+
+        return resultado[0].IDUsuario;
+    }
 
     static validarUsuario(username){
         // console.log("MODEL Username:", username);
         return db.execute(`
-            SELECT * FROM usuarios WHERE username = ?
+            SELECT * FROM usuarios WHERE username = ? OR correo = ?
+        `, [username, username]);
+    }
+
+    static async getEdadUsuario(username){
+        const [resultado] = await db.execute(`
+            SELECT fecha_nacimiento, 
+                FLOOR(DATEDIFF(CURDATE(), fecha_nacimiento) / 365.25) AS edad
+            FROM usuarios
+            WHERE username = ?;
+            `, [username]);
+
+        return resultado[0].edad;
+    }
+
+    static async getInfoUsuario(username){
+
+        return db.execute(`
+            SELECT nombre, apellido, telefono, correo, fecha_nacimiento 
+            FROM usuarios WHERE username = ?
         `, [username]);
     }
 }
