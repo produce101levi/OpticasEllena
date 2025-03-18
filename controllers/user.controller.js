@@ -29,6 +29,7 @@ exports.postLogin = async (req, res, next) => {
                     if (doMatch){
                         req.session.name = user.nombre;
                         req.session.username = user.username;
+                        req.session.id = user.ID;
                         req.session.sesionIniciada = true;
                         return res.redirect('/');
                     } else {

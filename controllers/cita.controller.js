@@ -95,6 +95,7 @@ exports.postAgendarOtro = async (req, res, next) => {
             req.session.username, req.body.nombre, req.body.apellido, req.body.telefono,
             req.body.edad, req.body.fecha_cita
         ).then(() => {
+            req.session.citaConfirmada = true;
             res.redirect('/');
         });
     } catch(error){
