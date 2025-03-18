@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/flatpickr.css">
+    <title>Agendar Cita</title>
+</head>
+<body>
+    <%- include('./includes/menu.ejs') %>
+    <div id="citas" class="column is-4 is-offset-4 my-6">
+        <div class="box px-5 py-6">
+            <div class="title has-text-centered">
+                Agendar Cita
+            </div>
+            <div id="infoPropio">
+                <form action="/user/cliente/agendar-cita/propio-usuario" method="POST">
+
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <div class="info-usuario my-2">
+                                <strong><%= user.nombre %> <%= user.apellido %>
+                                    <br>
+                                    <%= user.telefono %>
+                                    <br>
+                                    <%= edad %> años
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <strong><a id="botonPropio" onclick="cambiarPropio()" class="is-danger-dark-text">Quiero agendar para alguien más</a></strong>
+                        </div>
+                        
+                    </div>
+
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input class="input" 
+                            type="datetime-local" 
+                            name="fecha_cita" 
+                            placeholder="Fecha y Hora"
+                            required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-clock"></i>
+                            </span>  
+                        </p>
+                    </div>
+                    <div class="field">
+                        <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Guardar">
+                    </div>
+                </div>
+                <div class="field" id="otroUsuario">
+
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    
+    <script src="/scripts/agendar_cita.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("input[type=datetime-local]", {
+            enableTime: true,
+            minTime: "11:00",
+            maxTime: "18:30",
+            minDate: new Date(),
+            minuteIncrement: 30,
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                    longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                },
+                months: {
+                    shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                }
+            }
+        });
+    </script>
+</body>
+</html>

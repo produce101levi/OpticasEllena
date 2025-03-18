@@ -10,6 +10,11 @@
 </head>
 <body>
     <%- include('includes/menu') %>
+    <% if(cita) { %>
+    <a href="#" class="notification is-radiusless cita-popup has-text-centered">
+        <strong>¡Has agendado exitosamente tu cita con nosotros! Haz clic aquí para ver más información.</strong>
+    </a>
+    <% } %>
     <figure class="image">
         <img src="https://images.inc.com/uploaded_files/image/1920x1080/getty_628497968_386333.jpg" />
     </figure>
@@ -68,7 +73,7 @@
     </h1>
     <div class="columns is-centered">
         
-        <a class="button is-danger-dark is-large">
+        <a href="/user/cliente/agendar-cita" class="button is-danger-dark is-large">
             Agendar Cita
         </a>
     </div>
