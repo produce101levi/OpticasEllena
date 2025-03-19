@@ -9,10 +9,34 @@
 </head>
 <body>
     <%- include('includes/menu') %>
-    <div class="column is-4 is-offset-4 my-6">
-        <div class="box px-5 box-wrapper">
-            <div class="title has-text-centered">Cita</div>
+    <% if (citas.length > 0) { %>
+        <div class="fixed-grid mx-2 my-6 has-3-cols">
+            <div class="grid">
+                    <% for (let cita of citas){ %>
+
+                        <div class="box has-radius-normal box-wrapper">
+                            <div class="title has-text-centered">Cita de <%= cita.nombre %></div>
+                            <strong>Nombre: </strong><%= cita.nombre %> <%= cita.apellido %>
+                            <br>
+                            <strong>Edad(es): </strong><%= cita.edad %>
+                            <br>
+                            <strong>Fecha: </strong><%= cita.fecha %>
+                            <br>
+                            <strong>Hora: </strong><%= cita.hora %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
         </div>
-    </div>
+    <% } else { %>
+        <div class="column is-4 is-offset-4">
+
+            <div class="box has-radius-normal">
+                <strong>
+                    No tienes citas activas en este momento. <a class="is-danger-dark-text" href="/user/cliente/agendar-cita">Agendar Cita</a>
+                </strong>
+            </div>
+        </div>
+    <% } %>
 </body>
 </html>
