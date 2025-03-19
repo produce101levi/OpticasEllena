@@ -111,11 +111,15 @@ exports.getConsultarCitaPropia = async (req, res, next) => {
     try {
         Cita.getInfoCitasCliente(req.session.username)
         .then(([citas, fieldData]) => {
-            console.log(citas);
+            const citasFormato = citas.map(cita => ({
+                ...cita,
+                fecha: new Intl.DateTimeFormat('es-ES', {dateStyle: "long"}).format(new Date(cita.fecha_hora)),
+                hora: new Intl.DateTimeFormat('es-ES', {timeStyle: "short"}).format(new Date(cita.fecha_hora))
+            }));
             res.render('consultar_cita_propia', {
                 name: req.session.name,
                 username: req.session.username,
-                citas: citas
+                citas: citasFormato
             })
         });
     } catch(error){

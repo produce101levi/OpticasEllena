@@ -29,6 +29,10 @@
     width: 100%;
 }
 
+.box {
+    height: 100%
+}
+
 .box-wrapper {
     padding-top: 80px;
     padding-bottom: 80px;
