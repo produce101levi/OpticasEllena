@@ -17,10 +17,13 @@ module.exports = class Cita {
     }
 
     static async getInfoCitasCliente(username){
-        const IDUsuario = Usuario.getIDUsuario;
-        const [infoCliente] = await Cliente.getInfoCliente(username, IDUsuario);
-        console.log(infoCliente);
-        console.log(IDUsuario);
+        const IDUsuario = await Usuario.getIDUsuario(username);
+        return db.execute(`
+            SELECT nombre, apellido, edad, fecha_hora  
+            FROM clientes cl 
+            INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
+            WHERE ci.IDUsuario = ?
+        `, [IDUsuario])
     }
 
 }

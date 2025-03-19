@@ -204,11 +204,4 @@ module.exports = class Contrato {
         `, ['%' + valor_busqueda + '%', '%' + valor_busqueda + '%'])
     }
 
-    static async getInfoCliente(username, IDUsuario){
-        return db.execute(`
-            SELECT nombre, apellido, edad, fecha_hora  
-            FROM clientes cl 
-            INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
-        `)
-    }
 }
