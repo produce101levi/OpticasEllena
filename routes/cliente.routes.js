@@ -11,7 +11,7 @@ router.post('/agendar-cita/otro-usuario', isAuth, citaController.postAgendarOtro
 router.post('/agendar-cita/propio-usuario', isAuth, citaController.postAgendarPropio);
 
 // Consultar Citas
-router.get('/consultar-cita/:username', isAuth, citaController.getConsultarCitaPropia);
+router.get('/consultar-cita', isAuth, citaController.getConsultarCitaPropia);
 
 
 module.exports = router;

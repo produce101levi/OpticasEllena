@@ -83,7 +83,7 @@ exports.postAgendarPropio = async (req, res, next) => {
             Cita.agendarCita(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita)
             .then(() => {
                 req.session.citaConfirmada = true;
-                res.redirect('/');
+                res.redirect(`/user/cliente/consultar-cita/`);
             });
 
         });
@@ -99,7 +99,7 @@ exports.postAgendarOtro = async (req, res, next) => {
             req.body.edad, req.body.fecha_cita
         ).then(() => {
             req.session.citaConfirmada = true;
-            res.redirect('/');
+            res.redirect(`/user/cliente/consultar-cita/`);
         });
     } catch(error){
         console.log(error)
