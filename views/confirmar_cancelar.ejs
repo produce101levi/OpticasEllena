@@ -9,6 +9,31 @@
 </head>
 <body>
     <%- include('includes/menu.ejs') %>
+    <div class="title has-text-centered is-danger-dark-text mt-6">
+        ¿Estás segur@ de que deseas cancelar esta cita?
+    </div>
+    <div class="columns is-centered mx-2 mt-6 mb-5 is-multiline">
+            <div class="column is-4">
+                <div class="box my-3 has-radius-normal">
+                    <div class="title has-text-centered my-3">Cita de <%= cita.nombre %></div>
+                    <strong>Nombre: </strong><%= cita.nombre %> <%= cita.apellido %>
+                    <br>
+                    <strong>Edad de paciente(s): </strong><%= cita.edad %>
+                    <br>
+                    <strong>Fecha: </strong><%= cita.fecha %>
+                    <br>
+                    <strong>Hora: </strong><%= cita.hora %>
+                    <div class="columns mt-2">
+                        <div class="column is-6">
+                            <input class="button is-danger-dark is-fullwidth is-medium" type="button" value="Sí">
+                        </div>
+                        <div class="column is-6">
+                            <a class="button is-light is-fullwidth is-medium">No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
     
 </body>
 </html>

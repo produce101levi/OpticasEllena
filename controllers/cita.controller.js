@@ -133,10 +133,15 @@ exports.getCancelarCitaCliente = async (req, res, next) => {
         const id = req.params.id
         Cita.getUnaCita(id)
         .then(([cita, fieldData]) => {
-            console.log(cita)
+            const citaFormato = {
+                ...cita[0],
+                fecha: new Intl.DateTimeFormat('es-ES', {dateStyle: "long"}).format(new Date(cita[0].fecha_hora)),
+                hora: new Intl.DateTimeFormat('es-ES', {timeStyle: "short"}).format(new Date(cita[0].fecha_hora))
+            };
             res.render('confirmar_cancelar', {
                 name: req.session.name,
                 username: req.session.username,
+                cita: citaFormato
             })
         })
     } catch(error){
