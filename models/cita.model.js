@@ -26,4 +26,13 @@ module.exports = class Cita {
         `, [IDUsuario])
     }
 
+    static async getUnaCita(id){
+        return db.execute(`
+            SELECT IDCita, nombre, apellido, edad, fecha_hora  
+            FROM clientes cl 
+            INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
+            WHERE ci.IDCita = ?
+        `, [id])
+    }
+
 }
