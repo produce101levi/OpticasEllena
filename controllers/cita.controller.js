@@ -126,3 +126,20 @@ exports.getConsultarCitaPropia = async (req, res, next) => {
         console.log(error)
     }
 }
+
+// Middlewares para que el cliente cancele su propia cita
+exports.getCancelarCitaCliente = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        Cita.getUnaCita(id)
+        .then(([cita, fieldData]) => {
+            console.log(cita)
+            res.render('confirmar_cancelar', {
+                name: req.session.name,
+                username: req.session.username,
+            })
+        })
+    } catch(error){
+
+    }
+}
