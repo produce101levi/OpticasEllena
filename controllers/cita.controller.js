@@ -20,7 +20,8 @@ exports.getAgendarCita = async (req, res, next) => {
                 edad: edad,
                 user: user,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
         });
     } catch(error) {
@@ -34,7 +35,8 @@ exports.getAgendarOtro = async (req, res, next) => {
             return res.status(200).json({
                 confirmed: false,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
     } catch(error) {
         console.log(error);
@@ -58,7 +60,8 @@ exports.getAgendarPropio = async (req, res, next) => {
                 confirmed: false,
                 user: user,
                 name: req.session.name,  
-                error: req.session.error
+                error: req.session.error,
+                username: req.session.username
             });
         })
     } catch(error) {
@@ -80,7 +83,7 @@ exports.postAgendarPropio = async (req, res, next) => {
             Cita.agendarCita(req.session.username, usuarioActual.nombre, usuarioActual.apellido, usuarioActual.telefono, edad, req.body.fecha_cita)
             .then(() => {
                 req.session.citaConfirmada = true;
-                res.redirect('/');
+                res.redirect(`/user/cliente/consultar-cita/`);
             });
 
         });
@@ -96,7 +99,28 @@ exports.postAgendarOtro = async (req, res, next) => {
             req.body.edad, req.body.fecha_cita
         ).then(() => {
             req.session.citaConfirmada = true;
-            res.redirect('/');
+            res.redirect(`/user/cliente/consultar-cita/`);
+        });
+    } catch(error){
+        console.log(error)
+    }
+}
+
+// Middleware para conseguir información de cita propia de usuario
+exports.getConsultarCitaPropia = async (req, res, next) => {
+    try {
+        Cita.getInfoCitasCliente(req.session.username)
+        .then(([citas, fieldData]) => {
+            const citasFormato = citas.map(cita => ({
+                ...cita,
+                fecha: new Intl.DateTimeFormat('es-ES', {dateStyle: "long"}).format(new Date(cita.fecha_hora)),
+                hora: new Intl.DateTimeFormat('es-ES', {timeStyle: "short"}).format(new Date(cita.fecha_hora))
+            }));
+            res.render('consultar_cita_propia', {
+                name: req.session.name,
+                username: req.session.username,
+                citas: citasFormato
+            })
         });
     } catch(error){
         console.log(error)

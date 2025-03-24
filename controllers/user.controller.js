@@ -10,6 +10,7 @@ exports.getLogin = async (req, res, next) => {
             name: req.session.name,
             error: error,
             registrar: false,
+            username: req.session.username
         });
     } catch(error){
         console.log(error);
@@ -29,7 +30,6 @@ exports.postLogin = async (req, res, next) => {
                     if (doMatch){
                         req.session.name = user.nombre;
                         req.session.username = user.username;
-                        req.session.id = user.ID;
                         req.session.sesionIniciada = true;
                         return res.redirect('/');
                     } else {
@@ -66,6 +66,7 @@ exports.getRegistrar = async (req, res, next) => {
             name: req.session.name,
             error: error,
             registrar: true,
+            username: req.session.username
         });
     } catch(error){
         console.log("[GET REGISTRAR]", error);
