@@ -19,7 +19,7 @@ module.exports = class Cita {
     static async getInfoCitasCliente(username){
         const IDUsuario = await Usuario.getIDUsuario(username);
         return db.execute(`
-            SELECT nombre, apellido, edad, fecha_hora  
+            SELECT IDCita, nombre, apellido, edad, fecha_hora  
             FROM clientes cl 
             INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
             WHERE ci.IDUsuario = ?
