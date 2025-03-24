@@ -10,18 +10,24 @@
 <body>
     <%- include('includes/menu') %>
     <% if (citas.length > 0) { %>
-        <div class="columns is-centered mx-2 mt-6 mb-5">
+        <div class="columns is-centered mx-2 mt-6 mb-5 is-multiline">
+            <% let count = 0 %>
             <% for (let cita of citas){ %>
                 <div class="column is-4">
-                        <div class="box has-radius-normal box-wrapper">
-                            <div class="title has-text-centered">Cita de <%= cita.nombre %></div>
+                        <div class="box has-radius-normal">
+                            <div class="title has-text-centered my-3">Cita de <%= cita.nombre %></div>
                             <strong>Nombre: </strong><%= cita.nombre %> <%= cita.apellido %>
                             <br>
                             <strong>Edad de paciente(s): </strong><%= cita.edad %>
                             <br>
                             <strong>Fecha: </strong><%= cita.fecha %>
                             <br>
-                        <strong>Hora: </strong><%= cita.hora %>
+                            <strong>Hora: </strong><%= cita.hora %>
+                            <div class="has-text-right">
+                                <a class="tag is-light">
+                                    Cancelar Cita
+                                </a>
+                            </div>
                     </div>
                 </div>
             <% } %>
