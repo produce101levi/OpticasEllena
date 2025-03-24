@@ -9,17 +9,21 @@ module.exports = class Cita {
             const IDCliente = await Cliente.agregar_cliente(nombre, apellido, telefono);
             const IDUsuario = await Usuario.getIDUsuario(username);
 
-            console.log("CITA CREADA: ")
-            console.log("Nombre:", nombre, apellido);
-            console.log("Teléfono:", telefono);
-            console.log("Edad(es):", edad);
-            console.log("Fecha y Hora:", fecha_hora);
-
             return db.execute(`
                 INSERT INTO citas(IDUsuario, IDCliente, edad, fecha_hora, status)
                 VALUES(?, ?, ?, ?, ?)
             `, [IDUsuario, IDCliente, edad, fecha_hora, 'STATUS']);
 
+    }
+
+    static async getInfoCitasCliente(username){
+        const IDUsuario = await Usuario.getIDUsuario(username);
+        return db.execute(`
+            SELECT nombre, apellido, edad, fecha_hora  
+            FROM clientes cl 
+            INNER JOIN citas ci ON cl.IDCliente=ci.IDCliente
+            WHERE ci.IDUsuario = ?
+        `, [IDUsuario])
     }
 
 }

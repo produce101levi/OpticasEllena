@@ -203,4 +203,5 @@ module.exports = class Contrato {
             ORDER BY CAST(SUBSTRING_INDEX(IDContrato, '-', 1) AS UNSIGNED); 
         `, ['%' + valor_busqueda + '%', '%' + valor_busqueda + '%'])
     }
+
 }

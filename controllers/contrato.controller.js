@@ -15,6 +15,7 @@ exports.get_contratos = async (req, res, next) => {
         res.render('cartera', {
             contratos: formattedRows,
             name: req.session.name,
+            username: req.session.username
         });
     } catch (error) {
         console.error('[CARTERA]', error);
@@ -49,6 +50,7 @@ exports.get_armazones = async (req, res, next) => {
             tratamientos: req.tratamientos,
             error: error,
             formData: formData,
+            username: req.session.username
         });
     } catch(error){
         console.error('[ARMAZONES]', error);

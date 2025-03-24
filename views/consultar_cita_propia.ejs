@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Citas</title>
+    <link rel="stylesheet" href="/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+</head>
+<body>
+    <%- include('includes/menu') %>
+    <% if (citas.length > 0) { %>
+        <div class="columns is-centered mx-2 mt-6 mb-5">
+            <% for (let cita of citas){ %>
+                <div class="column is-4">
+                        <div class="box has-radius-normal box-wrapper">
+                            <div class="title has-text-centered">Cita de <%= cita.nombre %></div>
+                            <strong>Nombre: </strong><%= cita.nombre %> <%= cita.apellido %>
+                            <br>
+                            <strong>Edad de paciente(s): </strong><%= cita.edad %>
+                            <br>
+                            <strong>Fecha: </strong><%= cita.fecha %>
+                            <br>
+                        <strong>Hora: </strong><%= cita.hora %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="columns is-centered">
+            <h2>
+                <strong>
+                    <a class="title is-5 is-danger-dark-text" href="/user/cliente/agendar-cita">
+                        Quiero agendar otra cita
+                    </a>
+                </strong>
+            </h2>
+        </div>
+    <% } else { %>
+        <div class="column is-4 my-6 is-offset-4">
+
+            <div class="box has-radius-normal">
+                <strong>
+                    No tienes citas activas en este momento. <a class="is-danger-dark-text" href="/user/cliente/agendar-cita">Agendar Cita</a>
+                </strong>
+            </div>
+        </div>
+    <% } %>
+</body>
+</html>
