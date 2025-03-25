@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Cancelación de Cita</title>
+    <link rel="stylesheet" href="/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+</head>
+<body>
+    <%- include('includes/menu.ejs') %>
+    <div class="title has-text-centered is-danger-dark-text mt-6">
+        ¿Estás segur@ de que deseas cancelar esta cita?
+    </div>
+    <div class="columns is-centered mx-2 mt-6 mb-5 is-multiline">
+            <div class="column is-4">
+                <form action="/user/cliente/cancelar-cita/<%=cita.IDCita%>" method="POST">
+                    <div class="box my-3 has-radius-normal">
+                        <div class="title has-text-centered my-3">Cita de <%= cita.nombre %></div>
+                        <strong>Nombre: </strong><%= cita.nombre %> <%= cita.apellido %>
+                        <br>
+                        <strong>Edad de paciente(s): </strong><%= cita.edad %>
+                        <br>
+                        <strong>Fecha: </strong><%= cita.fecha %>
+                        <br>
+                        <strong>Hora: </strong><%= cita.hora %>
+                        <div class="columns mt-2">
+                            <div class="column is-6">
+                                <input class="button is-danger-dark is-fullwidth is-medium" type="submit" value="Sí">
+                            </div>
+                            <div class="column is-6">
+                                <a href="/user/cliente/consultar-cita/" class="button is-light is-fullwidth is-medium">No</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+    
+</body>
+</html>

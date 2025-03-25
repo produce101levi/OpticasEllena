@@ -126,3 +126,37 @@ exports.getConsultarCitaPropia = async (req, res, next) => {
         console.log(error)
     }
 }
+
+// Middlewares para que el cliente cancele su propia cita
+exports.getCancelarCitaCliente = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        Cita.getUnaCita(id)
+        .then(([cita, fieldData]) => {
+            const citaFormato = {
+                ...cita[0],
+                fecha: new Intl.DateTimeFormat('es-ES', {dateStyle: "long"}).format(new Date(cita[0].fecha_hora)),
+                hora: new Intl.DateTimeFormat('es-ES', {timeStyle: "short"}).format(new Date(cita[0].fecha_hora))
+            };
+            res.render('confirmar_cancelar', {
+                name: req.session.name,
+                username: req.session.username,
+                cita: citaFormato
+            })
+        })
+    } catch(error){
+        console.log(error)
+    }
+}
+
+exports.postCancelarCitaCliente = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        Cita.cancelarCitaCliente(id)
+        .then(([cita, fieldData]) => {
+            res.redirect('/user/cliente/consultar-cita')
+        })
+    } catch(error) {
+        console.log(error)
+    }
+}
