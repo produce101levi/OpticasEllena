@@ -12,7 +12,7 @@ module.exports = class Cita {
             return db.execute(`
                 INSERT INTO citas(IDUsuario, IDCliente, edad, fecha_hora, status)
                 VALUES(?, ?, ?, ?, ?)
-            `, [IDUsuario, IDCliente, edad, fecha_hora, 'STATUS']);
+            `, [IDUsuario, IDCliente, edad, fecha_hora, 'ACTIVA']);
 
     }
 
