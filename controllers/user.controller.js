@@ -28,10 +28,15 @@ exports.postLogin = async (req, res, next) => {
                 bcrypt.compare(req.body.contrasena, user.contrasena)
                 .then(doMatch => {
                     if (doMatch){
-                        req.session.name = user.nombre;
-                        req.session.username = user.username;
-                        req.session.sesionIniciada = true;
-                        return res.redirect('/');
+                        Usuario.getPermisos(user.username)
+                        .then(([permisos, fieldData]) => {
+                            req.session.name = user.nombre;
+                            req.session.username = user.username;
+                            req.session.permisos = permisos
+                            req.session.sesionIniciada = true;
+                            console.log(permisos);
+                            return res.redirect('/');
+                        })
                     } else {
                         req.session.error = "Usuario o contraseña incorrecto(s)";
                         return res.redirect('/user/login');

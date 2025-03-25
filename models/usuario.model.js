@@ -22,11 +22,11 @@ module.exports = class Usuario {
             return db.execute(
                 `INSERT INTO usuarios(
                     username, contrasena, nombre, apellido, telefono, 
-                    correo, fecha_nacimiento
+                    correo, fecha_nacimiento, IDRol
                 ) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
                 [this.username, contrasenaCifrada, this.nombre, this.apellido, this.telefono,
-                this.correo, this.fecha_nacimiento]);
+                this.correo, this.fecha_nacimiento, 1]);
         })
         
     }
@@ -63,5 +63,15 @@ module.exports = class Usuario {
             SELECT nombre, apellido, telefono, correo, fecha_nacimiento 
             FROM usuarios WHERE username = ?
         `, [username]);
+    }
+
+    static async getPermisos(username){
+        return db.execute(`
+            SELECT u.IDUsuario, r.IDRol, p.IDPueden, pe.IDPermiso, username, rol_nombre, permiso
+            FROM usuarios u, roles r, pueden p, permisos pe
+            WHERE username = ?
+            AND u.IDRol = r.IDrol
+            AND pe.IDPermiso = p.IDpermiso
+        `, [username])
     }
 }
