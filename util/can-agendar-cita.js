@@ -8,5 +8,5 @@ module.exports = (req, res, next) => {
     }
     if (canAgendarCita) next();
 
-    else return res.redirect('/user/login')
+    else return res.status(400)
 }
