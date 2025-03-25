@@ -8,5 +8,5 @@ module.exports = (req, res, next) => {
     }
     if (canCancelarCita) next();
 
-    else return res.status(400)
+    else return res.render('404');
 }
