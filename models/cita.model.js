@@ -35,4 +35,13 @@ module.exports = class Cita {
         `, [id])
     }
 
+    // Función para cancelar una cita (cambiar status a cancelado)
+    static async cancelarCitaCliente(id){
+        return db.execute(`
+            UPDATE citas
+            SET status = 'INACTIVA'
+            WHERE IDCita = ?
+        `, [id])
+    }
+
 }

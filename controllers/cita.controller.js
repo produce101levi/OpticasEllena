@@ -145,6 +145,18 @@ exports.getCancelarCitaCliente = async (req, res, next) => {
             })
         })
     } catch(error){
+        console.log(error)
+    }
+}
 
+exports.postCancelarCitaCliente = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        Cita.cancelarCitaCliente(id)
+        .then(([cita, fieldData]) => {
+            res.redirect('/user/cliente/consultar-cita')
+        })
+    } catch(error) {
+        console.log(error)
     }
 }

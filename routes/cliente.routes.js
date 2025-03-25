@@ -15,6 +15,6 @@ router.get('/consultar-cita', isAuth, citaController.getConsultarCitaPropia);
 
 // Cancelar Citas
 router.get('/cancelar-cita/:id', isAuth, citaController.getCancelarCitaCliente);
-
+router.post('/cancelar-cita/:id', isAuth, citaController.postCancelarCitaCliente)
 
 module.exports = router;
