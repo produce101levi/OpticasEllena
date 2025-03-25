@@ -21,7 +21,8 @@ exports.getAgendarCita = async (req, res, next) => {
                 user: user,
                 name: req.session.name,  
                 error: req.session.error,
-                username: req.session.username
+                username: req.session.username,
+                permisos: req.session.permisos
             });
         });
     } catch(error) {
@@ -36,7 +37,8 @@ exports.getAgendarOtro = async (req, res, next) => {
                 confirmed: false,
                 name: req.session.name,  
                 error: req.session.error,
-                username: req.session.username
+                username: req.session.username,
+                permisos: req.session.permisos
             });
     } catch(error) {
         console.log(error);
@@ -61,7 +63,8 @@ exports.getAgendarPropio = async (req, res, next) => {
                 user: user,
                 name: req.session.name,  
                 error: req.session.error,
-                username: req.session.username
+                username: req.session.username,
+                permisos: req.session.permisos
             });
         })
     } catch(error) {
@@ -119,7 +122,8 @@ exports.getConsultarCitaPropia = async (req, res, next) => {
             res.render('consultar_cita_propia', {
                 name: req.session.name,
                 username: req.session.username,
-                citas: citasFormato
+                citas: citasFormato,
+                permisos: req.session.permisos
             })
         });
     } catch(error){
@@ -141,7 +145,8 @@ exports.getCancelarCitaCliente = async (req, res, next) => {
             res.render('confirmar_cancelar', {
                 name: req.session.name,
                 username: req.session.username,
-                cita: citaFormato
+                cita: citaFormato,
+                permisos: req.session.permisos
             })
         })
     } catch(error){
