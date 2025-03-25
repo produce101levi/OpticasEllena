@@ -24,10 +24,16 @@ app.use('/user/empleado', rutasEmpleado)
 const rutasUser = require("./routes/user.routes")
 app.use('/user', rutasUser)
 
-const rutasCliente = require("./routes/cliente.routes")
+const rutasCliente = require("./routes/cliente.routes");
+const { prepare } = require('./util/database');
 app.use('/user/cliente', rutasCliente)
 
 app.use(express.static('public'));
+
+// Manejo de Errores 404
+app.use((req, res, next) => {
+    res.status(404).render('404')
+});
 
 const port = 3000;
 
