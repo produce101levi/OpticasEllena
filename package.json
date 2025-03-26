@@ -25,6 +25,7 @@
     "electron": "^34.2.0",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "firebase": "^11.5.0",
     "flatpickr": "^4.6.13",
     "mysql": "^2.18.1",
     "mysql2": "^3.12.0",
