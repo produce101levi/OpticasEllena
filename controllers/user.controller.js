@@ -1,3 +1,4 @@
+const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 
@@ -80,6 +81,7 @@ exports.getRegistrar = async (req, res, next) => {
 
 exports.postRegistrar = async (req, res, next) => {
     try {
+        const auth = getAuth();
         const nuevoUsuario = new Usuario(
             req.body.username, req.body.nombre, req.body.apellido,
             req.body.telefono, req.body.correo, req.body.fecha_nacimiento,
@@ -92,15 +94,26 @@ exports.postRegistrar = async (req, res, next) => {
             return res.redirect('/user/registrar');
         }
 
-        nuevoUsuario.registrarUsuario()
-            .then(([rows, fieldData]) => {
-                res.redirect('/user/login');
+        createUserWithEmailAndPassword(auth, req.body.correo, req.body.contrasena)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                nuevoUsuario.registrarUsuario()
+                    .then(([rows, fieldData]) => {
+                        res.redirect('/user/login');
+                    })
+                    .catch((error) => {
+                        console.log("[NUEVOUSUARIO POST]", error);
+                        req.session.error = "Ha ocurrido un error registrando el usuario.";
+                        res.redirect('/user/registrar');
+                    })
             })
             .catch((error) => {
-                console.log("[NUEVOUSUARIO POST]", error);
-                req.session.error = "Ha ocurrido un error registrando el usuario.";
-                res.redirect('/user/registrar');
-            })
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                // ..
+            });
 
     } catch(error){
         console.log("[POST REGISTRAR]", error);
