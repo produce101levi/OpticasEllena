@@ -1,3 +1,4 @@
+const{ app } = require('../firebase'); 
 const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
@@ -81,7 +82,10 @@ exports.getRegistrar = async (req, res, next) => {
 
 exports.postRegistrar = async (req, res, next) => {
     try {
-        const auth = getAuth();
+        const auth = getAuth(app);
+
+        // console.log(auth);
+
         const nuevoUsuario = new Usuario(
             req.body.username, req.body.nombre, req.body.apellido,
             req.body.telefono, req.body.correo, req.body.fecha_nacimiento,
@@ -93,6 +97,7 @@ exports.postRegistrar = async (req, res, next) => {
             req.session.error = "No has confirmado correctamente tu contraseña.";
             return res.redirect('/user/registrar');
         }
+
 
         createUserWithEmailAndPassword(auth, req.body.correo, req.body.contrasena)
             .then((userCredential) => {
@@ -111,8 +116,8 @@ exports.postRegistrar = async (req, res, next) => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage);
-                // ..
+                console.log('FIREBASE ERROR', errorCode, errorMessage);
+                return res.redirect('/user/registrar');
             });
 
     } catch(error){
