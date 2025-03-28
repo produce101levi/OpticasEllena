@@ -20,6 +20,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "bulma-social": "^2.1.0",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "ejs-electron": "^3.0.0",
     "electron": "^34.2.0",
