@@ -106,39 +106,43 @@ exports.postRegistrar = async (req, res, next) => {
             return res.redirect('/user/registrar');
         }
 
-
-        createUserWithEmailAndPassword(auth, req.body.correo, req.body.contrasena)
-            .then((userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-                sendEmailVerification(auth.currentUser)
-                .then(() => {
-                    nuevoUsuario.registrarUsuario()
-                        .then(([rows, fieldData]) => {
+        nuevoUsuario.registrarUsuario()
+            .then(([rows, fieldData]) => {
+                createUserWithEmailAndPassword(auth, req.body.correo, req.body.contrasena)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
                             req.session.emailSent = "¡Te enviamos un correo con instrucciones! Sigue los pasos para acceder a tu cuenta."
                             res.redirect('/user/login');
                         })
                         .catch((error) => {
-                            console.log("[NUEVOUSUARIO POST]", error);
-                            req.session.error = "Ha ocurrido un error registrando el usuario.";
-                            res.redirect('/user/registrar');
-                        })
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    req.session.error = errorMessage;
-                    console.log("[FIREBASE VERIFICATION EROR]", errorCode, errorMessage);
-                    return res.redirect('/user/registrar');
-                });
+                            const errorCode = error.code;
+                            const errorMessage = error.message;
+                            req.session.error = errorMessage;
+                            console.log("[FIREBASE VERIFICATION EROR]", errorCode, errorMessage);
+                            return res.redirect('/user/registrar');
+                        });
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        req.session.error = errorMessage;
+                        console.log('[FIREBASE REGISTRATION ERROR]', errorCode, errorMessage);
+                        return res.redirect('/user/registrar');
+                    });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                req.session.error = errorMessage;
-                console.log('[FIREBASE REGISTRATION ERROR]', errorCode, errorMessage);
-                return res.redirect('/user/registrar');
-            });
+                errorCode = error.code
+                console.log("[NUEVOUSUARIO POST]", errorCode);
+                if (errorCode == 'ER_DUP_ENTRY') {
+                    req.session.error = "Este usuario o correo electrónico ya está asociado con una cuenta."
+                } else {
+                    req.session.error = "Ha ocurrido un error registrando el usuario.";
+                }
+                res.redirect('/user/registrar');
+            })
 
     } catch(error){
         console.log("[POST REGISTRAR]", error);
