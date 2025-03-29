@@ -18,7 +18,14 @@
                 <span class="tag is-light my-2">
                     <%= error %>
                 </span>
+            <% } else if (emailSent) { %>
+
+                <div class="mb-2">
+                    <strong><%= emailSent %></strong>
+                </div>
+
             <% } %>
+
             <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="field">

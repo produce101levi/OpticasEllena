@@ -1,17 +1,21 @@
 const{ app } = require('../firebase'); 
-const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
+const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 
 exports.getLogin = async (req, res, next) => {
     try {
         const error = req.session.error || '';
+        const emailSent = req.session.emailSent || '';
 
         req.session.error = null;
+        req.session.emailSent = null;
+
         res.render('login', {
             name: req.session.name,
             error: error,
             registrar: false,
+            emailSent: emailSent,
             username: req.session.username,
             csrfToken: req.csrfToken()
         });
@@ -68,12 +72,14 @@ exports.getLogout = async (req, res, next) => {
 exports.getRegistrar = async (req, res, next) => {
     try {
         const error = req.session.error || '';
+        const emailSent = req.session.emailSent || '';
 
         req.session.error = null;
         res.render('login', {
             name: req.session.name,
             error: error,
             registrar: true,
+            emailSent: emailSent,
             username: req.session.username,
             csrfToken: req.csrfToken()
         });
@@ -105,20 +111,32 @@ exports.postRegistrar = async (req, res, next) => {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                nuevoUsuario.registrarUsuario()
-                    .then(([rows, fieldData]) => {
-                        res.redirect('/user/login');
-                    })
-                    .catch((error) => {
-                        console.log("[NUEVOUSUARIO POST]", error);
-                        req.session.error = "Ha ocurrido un error registrando el usuario.";
-                        res.redirect('/user/registrar');
-                    })
+                sendEmailVerification(auth.currentUser)
+                .then(() => {
+                    nuevoUsuario.registrarUsuario()
+                        .then(([rows, fieldData]) => {
+                            req.session.emailSent = "¡Te enviamos un correo con instrucciones! Sigue los pasos para acceder a tu cuenta."
+                            res.redirect('/user/login');
+                        })
+                        .catch((error) => {
+                            console.log("[NUEVOUSUARIO POST]", error);
+                            req.session.error = "Ha ocurrido un error registrando el usuario.";
+                            res.redirect('/user/registrar');
+                        })
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    req.session.error = errorMessage;
+                    console.log("[FIREBASE VERIFICATION EROR]", errorCode, errorMessage);
+                    return res.redirect('/user/registrar');
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log('FIREBASE ERROR', errorCode, errorMessage);
+                req.session.error = errorMessage;
+                console.log('[FIREBASE REGISTRATION ERROR]', errorCode, errorMessage);
                 return res.redirect('/user/registrar');
             });
 
