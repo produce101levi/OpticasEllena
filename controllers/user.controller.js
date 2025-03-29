@@ -12,7 +12,8 @@ exports.getLogin = async (req, res, next) => {
             name: req.session.name,
             error: error,
             registrar: false,
-            username: req.session.username
+            username: req.session.username,
+            csrfToken: req.csrfToken()
         });
     } catch(error){
         console.log(error);
@@ -73,7 +74,8 @@ exports.getRegistrar = async (req, res, next) => {
             name: req.session.name,
             error: error,
             registrar: true,
-            username: req.session.username
+            username: req.session.username,
+            csrfToken: req.csrfToken()
         });
     } catch(error){
         console.log("[GET REGISTRAR]", error);

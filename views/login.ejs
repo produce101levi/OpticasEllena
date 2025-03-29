@@ -20,6 +20,7 @@
                 </span>
             <% } %>
             <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="field">
                     <p class="control has-icons-left">
                         <input class="input" type="text" name="username" placeholder="Nombre de Usuario" autocomplete="off">
