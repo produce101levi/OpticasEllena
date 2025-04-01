@@ -87,7 +87,7 @@
                 <% } %>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="password" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
+                        <input class="input" type="password" <% if (registrar){ %>id="contrasena" <%}%> name="contrasena" placeholder="Contraseña" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>  
@@ -98,7 +98,7 @@
                 <% if (registrar) {%>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" autocomplete="off">
+                            <input class="input" id="confirmar_contrasena" type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" autocomplete="off">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-lock"></i>
                             </span>  

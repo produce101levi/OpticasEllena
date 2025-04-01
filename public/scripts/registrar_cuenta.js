@@ -14,10 +14,10 @@
 // });
 
 const inputContrasena = document.getElementById("contrasena");
+const confirmarContrasena = document.getElementById("confirmar_contrasena");
 
 inputContrasena.addEventListener("input", function() {
     let contrasena = this.value;
-    let mensaje = document.getElementById("mensaje");
 
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
@@ -29,3 +29,17 @@ inputContrasena.addEventListener("input", function() {
         inputContrasena.classList.add("is-danger")
     }
 })
+
+confirmarContrasena.addEventListener("input", function() {
+    let confirmar = this.value;
+    let contrasena = inputContrasena.value;
+    
+    if (confirmar == contrasena){
+        confirmarContrasena.classList.remove("is-danger");
+        confirmarContrasena.classList.add("is-success");
+    } else {
+        confirmarContrasena.classList.remove("is-success");
+        confirmarContrasena.classList.add("is-danger");
+    }
+})
+
