@@ -2,10 +2,12 @@
 const cambiarPropio = () => {
     const otroUsuario = document.getElementById("otroUsuario");
     const infoPropio = document.getElementById("infoPropio");
+    const csrfToken = document.getElementById('_csrf').value;
     fetch('/user/cliente/agendar-cita/otro-usuario', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
         }
     })
     .then(result => result.json())
@@ -13,6 +15,7 @@ const cambiarPropio = () => {
         let html = "";
         html+=`
             <form action="/user/cliente/agendar-cita/otro-usuario" method="POST">
+                <input type="hidden" id="_csrf" name="_csrf" value="${csrfToken}">
                 <strong><a id="botonPropio" onclick="cambiarOtro()" class="is-danger-dark-text">Quiero agendar para mí mism@</a></strong>
                 <br><br>
                 <div class="field">
@@ -78,10 +81,12 @@ const cambiarPropio = () => {
 const cambiarOtro = () => {
     const otroUsuario = document.getElementById("otroUsuario");
     const infoPropio = document.getElementById("infoPropio");
+    const csrfToken = document.getElementById('_csrf').value;
     fetch('/user/cliente/agendar-cita/propio-usuario', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
         }
     })
     .then(result => result.json())
@@ -90,6 +95,7 @@ const cambiarOtro = () => {
         console.log("Data:", data);
         html+=`
         <form action="/user/cliente/agendar-cita/propio-usuario" method="POST">
+            <input type="hidden" id="_csrf" name="_csrf" value="${csrfToken}">
             <div class="columns is-vcentered">
                 <div class="column">
                     <div class="info-usuario my-2">

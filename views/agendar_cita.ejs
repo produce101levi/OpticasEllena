@@ -17,7 +17,7 @@
             </div>
             <div id="infoPropio">
                 <form action="/user/cliente/agendar-cita/propio-usuario" method="POST">
-
+                    <input type="hidden" id="_csrf" name="_csrf" value="<%= csrfToken %>">
                     <div class="columns is-vcentered">
                         <div class="column">
                             <div class="info-usuario my-2">
