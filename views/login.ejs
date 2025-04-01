@@ -27,7 +27,7 @@
 
             <% } %>
 
-            <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST">
+            <!-- <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST"> -->
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="field">
                     <p class="control has-icons-left">
@@ -87,12 +87,14 @@
                 <% } %>
                 <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input" type="password" name="contrasena" placeholder="Contraseña" autocomplete="off">
+                        <input class="input" type="password" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>  
                     </p>
                 </div>
+                <p class="is-size-7" id="mensaje"></p>
+
                 <% if (registrar) {%>
                     <div class="field">
                         <p class="control has-icons-left">
@@ -112,7 +114,7 @@
                     <a class="button is-light is-medium is-fullwidth" href="/user/registrar">Registrar Usuario</a>
                 </div>
                 <% } %>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -131,5 +133,7 @@
             }
         });
     </script>
+
+    <script src="/scripts/registrar_cuenta.js"></script>
 </body>
 </html>
