@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/flatpickr.css">
     <title><%if (registrar) {%> Registrar Usuario <% } else { %> Login <% } %></title>
 </head>
 <body class="background">
@@ -71,9 +72,15 @@
                     </div>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" name="fecha_nacimiento" placeholder="Fecha de Nacimiento" autocomplete="off">
+                            <input class="input" 
+                            id="fecha_nacimiento"
+                            type="text" 
+                            onfocus="(this.type = 'date')" onblur="(this.type = 'text')" 
+                            name="fecha_nacimiento" 
+                            placeholder="Fecha de Nacimiento"
+                            required>
                             <span class="icon is-small is-left">
-                                <i class="fas fa-calendar"></i>
+                                <i class="fas fa-clock"></i>
                             </span>  
                         </p>
                     </div>
@@ -108,5 +115,21 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#fecha_nacimiento", {
+            locale: {
+                firstDayOfWeek: 1,
+                weekdays: {
+                    shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                    longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                },
+                months: {
+                    shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+                }
+            }
+        });
+    </script>
 </body>
 </html>
