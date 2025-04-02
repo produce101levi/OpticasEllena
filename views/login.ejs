@@ -86,11 +86,14 @@
                     </div>
                 <% } %>
                 <div class="field">
-                    <p class="control has-icons-left">
+                    <p class="control has-icons-left has-icons-right">
                         <input class="input" type="password" <% if (registrar){ %>id="contrasena" <%}%> name="contrasena" placeholder="Contraseña" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>  
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-eye-slash"></i>
+                        </span> 
                     </p>
                 </div>
                 <p class="is-size-7" id="mensaje"></p>
