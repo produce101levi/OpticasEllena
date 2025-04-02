@@ -35,13 +35,15 @@
 
 .box-wrapper {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
 }
 .login-wrapper {
-    padding-top: 25vh;
-    padding-bottom: 25vh;
+    padding-top: 5vh;
+    padding-bottom: 10vh;
 }
 .background {
     background-image: url('https://c1.wallpaperflare.com/preview/984/962/468/sunglasses-black-and-white-ray-bans-fashion.jpg');
-    background-size: cover
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
 }

@@ -24,10 +24,12 @@ inputContrasena.addEventListener("input", function() {
     if (regex.test(contrasena)) {
         inputContrasena.classList.remove("is-danger")
         inputContrasena.classList.add("is-success")
+        console.log(regex.test(contrasena))
     } else {
         inputContrasena.classList.remove("is-success")
         inputContrasena.classList.add("is-danger")
     }
+
 })
 
 confirmarContrasena.addEventListener("input", function() {

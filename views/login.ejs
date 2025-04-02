@@ -10,15 +10,15 @@
 </head>
 <body class="background">
     <%- include('includes/menu') %>
-    <div class="column is-4 is-offset-4 login-wrapper">
+    <div class="column is-4 is-offset-4">
         <div class="box px-5 box-wrapper">
             <div class="title has-text-centered">
                 <% if (registrar) { %> Registrar Cuenta <% } else { %> Iniciar Sesión <% } %>
             </div>
             <% if (error) { %>
-                <span class="tag is-light my-2">
-                    <%= error %>
-                </span>
+                <div class="is-size-7 mb-2">
+                    <strong class="is-danger-dark-text"><%= error %></strong>
+                </div>
             <% } else if (emailSent) { %>
 
                 <div class="mb-2">
@@ -27,13 +27,13 @@
 
             <% } %>
 
-            <!-- <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST"> -->
+            <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="field">
                     <p class="control has-icons-left">
                         <input class="input" type="text" name="username" placeholder="Nombre de Usuario" autocomplete="off">
                         <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user-tag"></i>
                         </span>  
                     </p>
                 </div>
@@ -50,7 +50,7 @@
                         <p class="control has-icons-left">
                             <input class="input" type="text" name="apellido" placeholder="Apellido(s)" autocomplete="off">
                             <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-users"></i>
                             </span>  
                         </p>
                     </div>
@@ -66,7 +66,7 @@
                         <p class="control has-icons-left">
                             <input class="input" type="text" name="correo" placeholder="Correo" autocomplete="off">
                             <span class="icon is-small is-left">
-                                <i class="fas fa-at"></i>
+                                <i class="fas fa-envelope"></i>
                             </span>  
                         </p>
                     </div>
@@ -80,7 +80,7 @@
                             placeholder="Fecha de Nacimiento"
                             required>
                             <span class="icon is-small is-left">
-                                <i class="fas fa-clock"></i>
+                                <i class="fas fa-calendar"></i>
                             </span>  
                         </p>
                     </div>
@@ -114,7 +114,7 @@
                     <a class="button is-light is-medium is-fullwidth" href="/user/registrar">Registrar Usuario</a>
                 </div>
                 <% } %>
-            <!-- </form> -->
+            </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
