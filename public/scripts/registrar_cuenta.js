@@ -25,9 +25,13 @@ inputContrasena.addEventListener("input", function() {
         inputContrasena.classList.remove("is-danger")
         inputContrasena.classList.add("is-success")
         console.log(regex.test(contrasena))
-    } else {
+    } else if (!regex.test(contrasena)){
         inputContrasena.classList.remove("is-success")
         inputContrasena.classList.add("is-danger")
+    }
+    
+    if (contrasena == ''){
+        inputContrasena.classList.remove("is-success", "is-danger")
     }
 
 })
@@ -42,6 +46,10 @@ confirmarContrasena.addEventListener("input", function() {
     } else {
         confirmarContrasena.classList.remove("is-success");
         confirmarContrasena.classList.add("is-danger");
+    }
+
+    if (confirmar == ''){
+        confirmarContrasena.classList.remove("is-success", "is-danger")
     }
 })
 
