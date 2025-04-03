@@ -35,21 +35,3 @@ inputContrasena.addEventListener("input", function() {
     }
 
 })
-
-confirmarContrasena.addEventListener("input", function() {
-    let confirmar = this.value;
-    let contrasena = inputContrasena.value;
-    
-    if (confirmar == contrasena){
-        confirmarContrasena.classList.remove("is-danger");
-        confirmarContrasena.classList.add("is-success");
-    } else {
-        confirmarContrasena.classList.remove("is-success");
-        confirmarContrasena.classList.add("is-danger");
-    }
-
-    if (confirmar == ''){
-        confirmarContrasena.classList.remove("is-success", "is-danger")
-    }
-})
-

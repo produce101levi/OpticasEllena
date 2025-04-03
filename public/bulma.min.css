@@ -38,12 +38,13 @@
     padding-bottom: 50px;
 }
 .login-wrapper {
-    padding-top: 5vh;
-    padding-bottom: 10vh;
+    padding-top: 10vh;
+    padding-bottom: 50vh;
 }
 .background {
     background-image: url('https://c1.wallpaperflare.com/preview/984/962/468/sunglasses-black-and-white-ray-bans-fashion.jpg');
     background-size: cover;
     margin: 0;
-    height: 100vh;
+    width: 100%;
+    position: fixed;
 }
