@@ -52,7 +52,7 @@
     pointer-events: auto;
 }
 
-#mostrar_contrasena i:hover {
+#mostrar_contrasena:hover {
     cursor: pointer;
     pointer-events: auto;
     color: #363636;

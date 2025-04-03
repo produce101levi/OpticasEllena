@@ -49,3 +49,38 @@ mostrar.addEventListener("click", () => {
         ojo.classList.add("fa-eye");
     }
 })
+
+// Detección de tecla mayúscula
+const control_contrasena = document.getElementById('control_contrasena');
+const span = document.createElement('span');
+const mayusIcono = document.createElement('i');
+
+span.classList.add('icon', 'is-small', 'is-right');
+mayusIcono.classList.add('fas', 'fa-arrow-up');
+
+span.appendChild(mayusIcono);
+mayusIcono.style.display = 'none';
+
+control_contrasena.appendChild(span);
+
+mayusIcono.style.marginRight = '50px';
+
+inputContrasena.addEventListener('focus', () => {
+    document.addEventListener('keydown', (event) => {
+        const mayusOn = event.getModifierState('CapsLock');
+        if (mayusOn){
+            mayusIcono.style.display = 'inline';
+        } else {
+            mayusIcono.style.display = 'none';
+        }
+    })
+
+    document.addEventListener('keyup', (event) => {
+        const mayusOn = event.getModifierState('CapsLock');
+        if (mayusOn){
+            mayusIcono.style.display = 'inline';
+        } else {
+            mayusIcono.style.display = 'none';
+        }
+    })
+})
