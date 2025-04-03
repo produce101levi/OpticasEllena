@@ -1,6 +1,7 @@
 // Validación instantánea de contraseña
 const inputContrasena = document.getElementById("contrasena");
 const confirmarContrasena = document.getElementById("confirmar_contrasena");
+const validacion = document.getElementById("validacion");
 
 inputContrasena.addEventListener("input", function() {
     let contrasena = this.value;
@@ -10,14 +11,25 @@ inputContrasena.addEventListener("input", function() {
     if (regex.test(contrasena)) {
         inputContrasena.classList.remove("is-danger");
         inputContrasena.classList.add("is-success", "has-text-black");
-        console.log(regex.test(contrasena))
+        validacion.classList.remove("has-text-danger");
+        validacion.classList.add("has-text-success");
+        validacion.innerHTML = `
+            Contraseña segura
+        `
     } else if (!regex.test(contrasena)){
         inputContrasena.classList.remove("is-success")
         inputContrasena.classList.add("is-danger", "has-text-black");
+        validacion.classList.remove("has-text-success");
+        validacion.classList.add("has-text-danger");
+        validacion.innerHTML = `
+            La contraseña debe tener mínimo 8 caracteres y contener un número, una mayúscula,
+            una minúscula y un caracter especial.
+        `
     }
     
     if (contrasena == ''){
         inputContrasena.classList.remove("is-success", "is-danger")
+        validacion.innerHTML = ''
     }
 
 })
