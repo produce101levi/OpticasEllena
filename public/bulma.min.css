@@ -41,6 +41,12 @@
     padding-top: 10vh;
     padding-bottom: 50vh;
 }
+
+.icon.is-right i {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
 .background {
     background-image: url('https://c1.wallpaperflare.com/preview/984/962/468/sunglasses-black-and-white-ray-bans-fashion.jpg');
     background-size: cover;
