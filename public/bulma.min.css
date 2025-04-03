@@ -47,12 +47,12 @@
 }
 
 
-.icon.is-right i {
+#mostrar_contrasena i {
     cursor: pointer;
     pointer-events: auto;
 }
 
-.icon.is-right i:hover {
+#mostrar_contrasena i:hover {
     cursor: pointer;
     pointer-events: auto;
     color: #363636;
