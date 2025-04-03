@@ -37,24 +37,6 @@
                         </span>  
                     </p>
                 </div>
-                <% if (registrar) { %>
-                    <div class="field">
-                        <p class="control has-icons-left">
-                            <input class="input" type="text" name="nombre" placeholder="Nombre(s)" autocomplete="off">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>  
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control has-icons-left">
-                            <input class="input" type="text" name="apellido" placeholder="Apellido(s)" autocomplete="off">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-users"></i>
-                            </span>  
-                        </p>
-                    </div>
-                <% } %>
                 <div class="field">
                     <p class="control has-icons-left">
                         <input class="input" type="password" <% if (registrar){ %>id="contrasena" <%}%> name="contrasena" placeholder="Contraseña" autocomplete="off">
