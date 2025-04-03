@@ -106,12 +106,6 @@ exports.postRegistrar = async (req, res, next) => {
             return res.redirect('/user/registrar');
         }
 
-        const confirmar = req.body.confirmar_contrasena;
-        if (confirmar != req.body.contrasena){
-            req.session.error = "No has confirmado correctamente tu contraseña.";
-            return res.redirect('/user/registrar');
-        }
-
         nuevoUsuario.registrarUsuario()
             .then(([rows, fieldData]) => {
                 createUserWithEmailAndPassword(auth, req.body.correo, req.body.contrasena)
