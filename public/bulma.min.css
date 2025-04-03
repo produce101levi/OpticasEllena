@@ -42,9 +42,21 @@
     padding-bottom: 50vh;
 }
 
+.input {
+    pointer-events: auto;
+}
+
+
 .icon.is-right i {
     cursor: pointer;
     pointer-events: auto;
+}
+
+.icon.is-right i:hover {
+    cursor: pointer;
+    pointer-events: auto;
+    color: #363636;
+    transition-duration: var(--bulma-duration);
 }
 
 .background {
