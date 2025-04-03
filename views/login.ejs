@@ -39,7 +39,7 @@
                 </div>
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="password" <% if (registrar){ %>id="contrasena" <%}%> name="contrasena" placeholder="Contraseña" autocomplete="off">
+                        <input class="input" type="password" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -79,6 +79,10 @@
         });
     </script>
 
-    <script src="/scripts/registrar_cuenta.js"></script>
+    <% if (registrar) { %>
+        <script src="/scripts/registrar_cuenta.js"></script>
+    <% } else { %>
+        <script src="/scripts/iniciar_sesion.js"></script>
+    <% } %>
 </body>
 </html>
