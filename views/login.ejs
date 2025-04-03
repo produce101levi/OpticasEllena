@@ -48,6 +48,9 @@
                 <div class="field">
                     <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value= <% if (registrar) { %> "Registrar" <% } else { %> "Iniciar Sesión" <% } %>>
                 </div>
+                <% if (registrar) { %>
+                    <p class="is-size-6 has-text-centered">¿Ya tienes una cuenta? <a class="is-danger-dark-text" href="/user/login">Iniciar Sesión</a></p>
+                <% } %>
                 <% if (!registrar) { %>
                 <div class="field">
                     <a class="button is-light is-medium is-fullwidth" href="/user/registrar">Registrar Usuario</a>
