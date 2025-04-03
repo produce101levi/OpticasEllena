@@ -8,12 +8,12 @@ inputContrasena.addEventListener("input", function() {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
     if (regex.test(contrasena)) {
-        inputContrasena.classList.remove("is-danger")
-        inputContrasena.classList.add("is-success")
+        inputContrasena.classList.remove("is-danger");
+        inputContrasena.classList.add("is-success", "has-text-black");
         console.log(regex.test(contrasena))
     } else if (!regex.test(contrasena)){
         inputContrasena.classList.remove("is-success")
-        inputContrasena.classList.add("is-danger")
+        inputContrasena.classList.add("is-danger", "has-text-black");
     }
     
     if (contrasena == ''){
@@ -25,6 +25,12 @@ inputContrasena.addEventListener("input", function() {
 // Mostrar contraseña
 const mostrar = document.getElementById('mostrar_contrasena')
 
-mostrar.addEventListener("click", () => {
-    console.log("Click!");
+mostrar.addEventListener("mousedown", () => {
+    console.log("Mouse down");
+    inputContrasena.type="text";
+})
+
+mostrar.addEventListener("mouseup", () => {
+    console.log("Mouse up");
+    inputContrasena.type="password";
 })
