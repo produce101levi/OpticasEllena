@@ -1,5 +1,5 @@
 const admin = require('../firebase'); 
-const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
+// const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
 
@@ -74,8 +74,6 @@ exports.getRegistrar = async (req, res, next) => {
         const error = req.session.error || '';
         const emailSent = req.session.emailSent || '';
 
-        console.log(admin);
-
         req.session.error = null;
         res.render('login', {
             name: req.session.name,
@@ -93,15 +91,40 @@ exports.getRegistrar = async (req, res, next) => {
 exports.postRegistrar = async (req, res, next) => {
     try {
         // Get the email and password from the form
-        const { email, password } = req.body;
+        const { email, contrasena } = req.body;
 
-        // Create user
-        const user = await admin.auth().createUser({
-			email,
-			password
-		});
-        
-        res.redirect('/user/login');
+        const nuevoUsuario = new Usuario(
+            email, contrasena
+        );
+
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (!regex.test(contrasena)){
+            req.session.error = "La contraseña debe tener una mayúscula, una minúscula, un número y un caracter special."
+            return res.redirect('/user/registrar');
+        }
+
+        nuevoUsuario.registrarUsuario()
+            .then(([rows, fieldData]) => {
+                
+                // Create user
+                const user = admin.auth().createUser({
+                    email,
+                    contrasena
+                });
+                
+                res.redirect('/user/login');
+            })
+            .catch((error) => {
+                errorCode = error.code
+                console.log("[NUEVOUSUARIO POST]", error);
+                if (errorCode == 'ER_DUP_ENTRY') {
+                    req.session.error = "Este usuario o correo electrónico ya está asociado con una cuenta."
+                } else {
+                    req.session.error = "Ha ocurrido un error registrando el usuario.";
+                }
+                res.redirect('/user/registrar');
+            })
+
     } catch(error){
         console.log("[POST REGISTRAR]", error);
     }
