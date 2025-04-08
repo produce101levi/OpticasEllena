@@ -1,4 +1,4 @@
-const{ admin } = require('../firebase'); 
+const admin = require('../firebase'); 
 const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
 const bcrypt = require('bcryptjs');
@@ -74,6 +74,8 @@ exports.getRegistrar = async (req, res, next) => {
         const error = req.session.error || '';
         const emailSent = req.session.emailSent || '';
 
+        console.log(admin);
+
         req.session.error = null;
         res.render('login', {
             name: req.session.name,
@@ -90,8 +92,16 @@ exports.getRegistrar = async (req, res, next) => {
 
 exports.postRegistrar = async (req, res, next) => {
     try {
+        // Get the email and password from the form
         const { email, password } = req.body;
 
+        // Create user
+        const user = await admin.auth().createUser({
+			email,
+			password
+		});
+        
+        res.redirect('/user/login');
     } catch(error){
         console.log("[POST REGISTRAR]", error);
     }
