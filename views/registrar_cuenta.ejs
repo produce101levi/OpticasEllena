@@ -6,15 +6,17 @@
     <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/flatpickr.css">
-    <title><%if (registrar) {%> Registrar Usuario <% } else { %> Login <% } %></title>
+    <title>Registrar Usuario</title>
 </head>
 <body class="background">
     <%- include('includes/menu') %>
     <div class="column is-4 is-offset-4 login-wrapper">
         <div class="box px-5 box-wrapper">
             <div class="title has-text-centered">
-                <% if (registrar) { %> Registrar Cuenta <% } else { %> Iniciar Sesión <% } %>
+                Registrar Cuenta
             </div>
+
+            <!-- Mensajes de error o notificación -->
             <% if (error) { %>
                 <div class="is-size-7 mb-2">
                     <strong class="is-danger-dark-text"><%= error %></strong>
@@ -26,8 +28,9 @@
                 </div>
 
             <% } %>
-
-            <form action= <% if (registrar) { %> "/user/registrar" <% } else { %>"/user/login" <% } %> method="POST">
+            
+            <!-- Form para registrar usuario -->
+            <form action="/user/registrar" id="registrarForm" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="field">
                     <p class="control has-icons-left">
@@ -51,16 +54,9 @@
                 <div class="is-size-7 mb-2" id="validacion">
                 </div>
                 <div class="field">
-                    <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value= <% if (registrar) { %> "Registrar" <% } else { %> "Iniciar Sesión" <% } %>>
+                    <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Registrar">
                 </div>
-                <% if (registrar) { %>
-                    <p class="is-size-6 has-text-centered">¿Ya tienes una cuenta? <a class="is-danger-dark-text" href="/user/login">Iniciar Sesión</a></p>
-                <% } %>
-                <% if (!registrar) { %>
-                <div class="field">
-                    <a class="button is-light is-medium is-fullwidth" href="/user/registrar">Registrar Usuario</a>
-                </div>
-                <% } %>
+                <p class="is-size-6 has-text-centered">¿Ya tienes una cuenta? <a class="is-danger-dark-text" href="/user/login">Iniciar Sesión</a></p>
             </form>
         </div>
     </div>
@@ -91,10 +87,6 @@
             appId: "<%= appId %>"
         };
     </script>
-    <% if (registrar) { %>
-        <script type="module" src="/scripts/registrar_cuenta.js"></script>
-    <% } else { %>
-        <script src="/scripts/iniciar_sesion.js"></script>
-    <% } %>
+    <script type="module" src="/scripts/registrar_cuenta.js"></script>
 </body>
 </html>

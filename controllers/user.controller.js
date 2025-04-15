@@ -75,13 +75,19 @@ exports.getRegistrar = async (req, res, next) => {
         const emailSent = req.session.emailSent || '';
 
         req.session.error = null;
-        res.render('login', {
+        res.render('registrar_cuenta', {
             name: req.session.name,
             error: error,
-            registrar: true,
             emailSent: emailSent,
             username: req.session.username,
-            csrfToken: req.csrfToken()
+            csrfToken: req.csrfToken(),
+            apiKey: process.env.API_KEY,
+            authDomain: process.env.AUTH_DOMAIN,
+            projectId: process.env.PROJECT_ID,
+            storageBucket: process.env.STORAGE_BUCKET,
+            messagingSenderId: process.env.MESSAGING_SENDER_ID,
+            appId: process.env.APP_ID,
+            measurementId: process.env.MEASUREMENT_ID
         });
     } catch(error){
         console.log("[GET REGISTRAR]", error);
