@@ -33,33 +33,18 @@
             <form action="/user/registrar" id="registrarForm" method="POST">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <!-- Contenedor para inputs de registro de usuario -->
-                <div id="inputs">
+                <div id="inputs" class="mb-3">
                     
                 </div>
-                <div class="is-size-7 mb-2" id="validacion">
-                </div>
-                <div class="field">
-                    <input class="button is-danger-dark is-medium is-fullwidth" type="submit" value="Siguiente">
-                </div>
+                
+                
                 <p class="is-size-6 has-text-centered">¿Ya tienes una cuenta? <a class="is-danger-dark-text" href="/user/login">Iniciar Sesión</a></p>
             </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        flatpickr("#fecha_nacimiento", {
-            locale: {
-                firstDayOfWeek: 1,
-                weekdays: {
-                    shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-                    longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                },
-                months: {
-                    shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                    longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-                }
-            }
-        });
+        
     </script>
 
     <script>

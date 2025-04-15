@@ -11,9 +11,12 @@ const auth = getAuth(app);
 // Variables de registro de cuenta
 const Form = document.getElementById('registrarForm');
 const inputs = document.getElementById('inputs');
+var siguiente;
 
 // Flujo de registro de cuenta
-document.addEventListener('DOMContentLoaded', () => {
+
+// Paso uno: Correo y Contraseña
+const pasoUno = () => {
     inputs.innerHTML = `
         <div class="field">
             <p class="control has-icons-left">
@@ -34,8 +37,77 @@ document.addEventListener('DOMContentLoaded', () => {
                 </span>
             </p>
         </div>
+        <div class="is-size-7 mb-2" id="validacion">
+        </div>
+        <div class="field">
+            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth">Siguiente</button>
+        </div>
     `
+    siguiente = document.getElementById('siguiente');
+}
+
+// Paso Dos: Nombre, Apellido, Teléfono y Fecha de Nacimiento
+const pasoDos = () => {
+    inputs.innerHTML = `
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="nombre" placeholder="Nombre" autocomplete="off">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>  
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="apellido" placeholder="Apellido" autocomplete="off">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-users"></i>
+                </span>  
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" name="telefono" placeholder="Número Telefónico" autocomplete="off">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                </span>  
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>  
+            </p>
+        </div>
+        
+    `
+    flatpickr("#fecha_nacimiento", {
+        locale: {
+            firstDayOfWeek: 1,
+            weekdays: {
+                shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            },
+            months: {
+                shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Correo y contraseña
+    pasoUno();
+    // Nombre y número telefónico
+    siguiente.addEventListener('click', (event) => {
+        event.preventDefault();
+        pasoDos();
+    })
 })
+
 
 
 // Form.addEventListener('submit', (event) => {
