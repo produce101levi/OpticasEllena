@@ -12,6 +12,8 @@ const auth = getAuth(app);
 const Form = document.getElementById('registrarForm');
 const inputs = document.getElementById('inputs');
 var siguiente;
+var registrar;
+var regresar;
 
 // Flujo de registro de cuenta
 
@@ -81,8 +83,17 @@ const pasoDos = () => {
                 </span>  
             </p>
         </div>
+        <div class="field">
+            <button id="regresar" class="button is-light is-medium is-fullwidth">Regresar</button>
+        </div>
+        <div class="field">
+            <button id="registrar" class="button is-danger-dark is-medium is-fullwidth">Registrar Usuario</button>
+        </div>
         
     `
+    regresar = document.getElementById('regresar');
+    registrar = document.getElementById('registrar');
+
     flatpickr("#fecha_nacimiento", {
         locale: {
             firstDayOfWeek: 1,
@@ -98,15 +109,38 @@ const pasoDos = () => {
     });
 }
 
+// Función para manejar event listener de botón SIGUIENTE
+const eventSiguiente = () => {
+    const botonSig = document.getElementById('siguiente');
+
+    if (botonSig){
+        botonSig.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            pasoDos();
+            eventRegresar();
+        })
+    }
+}
+
+const eventRegresar = () => {
+    const botonRegresar = document.getElementById('regresar');
+
+    if (botonRegresar){
+        botonRegresar.addEventListener('click', (event) => {
+            event.preventDefault();
+            
+            pasoUno();
+            eventSiguiente();
+        })
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Correo y contraseña
     pasoUno();
-    // Nombre y número telefónico
-    siguiente.addEventListener('click', (event) => {
-        event.preventDefault();
-        pasoDos();
-    })
-})
+    eventSiguiente();
+
+});
 
 
 
