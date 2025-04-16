@@ -14,6 +14,8 @@ const inputs = document.getElementById('inputs');
 var siguiente;
 var registrar;
 var regresar;
+var email;
+var contrasena;
 
 // Flujo de registro de cuenta
 
@@ -22,7 +24,7 @@ const pasoUno = () => {
     inputs.innerHTML = `
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" name="email" placeholder="Correo" autocomplete="off">
+                <input class="input" type="text" id="email" name="email" placeholder="Correo" autocomplete="off">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>  
@@ -51,6 +53,8 @@ const pasoUno = () => {
 // Paso Dos: Nombre, Apellido, Teléfono y Fecha de Nacimiento
 const pasoDos = () => {
     inputs.innerHTML = `
+        <input class="input" type="hidden" name="email" value="${email}" autocomplete="off">
+        <input class="input" type="hidden" name="contrasena" value="${contrasena}" autocomplete="off">
         <div class="field">
             <p class="control has-icons-left">
                 <input class="input" type="text" name="nombre" placeholder="Nombre" autocomplete="off">
@@ -117,6 +121,10 @@ const eventSiguiente = () => {
         botonSig.addEventListener('click', (event) => {
             event.preventDefault();
 
+            // Guardar valores introducidos por usuario
+            email = document.getElementById('email').value;
+            contrasena = document.getElementById('contrasena').value;
+
             pasoDos();
             eventRegresar();
         })
@@ -141,16 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     eventSiguiente();
 
 });
-
-
-
-// Form.addEventListener('submit', (event) => {
-//     event.preventDefault();
-
-//     const email = document.getElementById('email').value;
-//     const password = document.getElementById('password').value;
-
-// })
 
 // Esperar a que todos los elementos de la vista 
 // hayan cargado para continuar con script

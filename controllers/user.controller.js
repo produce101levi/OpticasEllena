@@ -73,6 +73,7 @@ exports.getRegistrar = async (req, res, next) => {
     try {
         const error = req.session.error || '';
         const emailSent = req.session.emailSent || '';
+        
 
         req.session.error = null;
         res.render('registrar_cuenta', {
@@ -89,6 +90,8 @@ exports.getRegistrar = async (req, res, next) => {
             appId: process.env.APP_ID,
             measurementId: process.env.MEASUREMENT_ID
         });
+
+
     } catch(error){
         console.log("[GET REGISTRAR]", error);
     }
@@ -102,6 +105,8 @@ exports.postRegistrar = async (req, res, next) => {
         // const nuevoUsuario = new Usuario(
         //     email, contrasena
         // );
+
+        console.log(req.body);
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
         if (!regex.test(contrasena)){
