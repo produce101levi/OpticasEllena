@@ -21,6 +21,8 @@ let registrar;
 let regresar;
 let emailValor = '';
 let contrasenaValor = '';
+let contrasenaValida;
+let correoValido;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,6 +54,7 @@ const validarContrasena = () => {
             validacion.innerHTML = `
                 Contraseña segura
             `
+            contrasenaValida = true
         } else if (!regex.test(contrasena)){
             inputContrasena.classList.remove("is-success")
             inputContrasena.classList.add("is-danger", "has-text-black");
@@ -61,14 +64,22 @@ const validarContrasena = () => {
                 La contraseña debe tener mínimo 8 caracteres y contener un número, una mayúscula,
                 una minúscula y un caracter especial.
             `
+            contrasenaValida = false;
         }
         
         if (contrasena == ''){
             inputContrasena.classList.remove("is-success", "is-danger")
             validacion.innerHTML = ''
         }
+
+        if (contrasenaValida){
+            siguiente.disabled = false;
+        } else {
+            siguiente.disabled = true;
+        }
     
     })
+
 }
 
 // Función para permitir ver contraseña
@@ -169,10 +180,12 @@ const pasoUno = () => {
         <div class="is-size-7 mb-2" id="validacion">
         </div>
         <div class="field">
-            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth">Siguiente</button>
+            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth" disabled>Siguiente</button>
         </div>
     `
+
     siguiente = document.getElementById('siguiente');
+    if(contrasenaValida) siguiente.disabled = false;
     validarContrasena();
     verContrasena();
     detectarMayus();

@@ -10,6 +10,11 @@
     color: #fff;
 }
 
+.is-danger-dark:disabled {
+    background-color: #700000;
+    color: #fff;
+}
+
 .is-danger-dark-text {
     color:#700000;
 }
