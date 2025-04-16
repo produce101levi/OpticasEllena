@@ -19,8 +19,8 @@ const inputs = document.getElementById('inputs');
 let siguiente;
 let registrar;
 let regresar;
-let emailValor;
-let contrasenaValor;
+let emailValor = '';
+let contrasenaValor = '';
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -141,7 +141,7 @@ const pasoUno = () => {
     inputs.innerHTML = `
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" id="email" name="email" placeholder="Correo" autocomplete="off">
+                <input class="input" type="text" id="email" name="email" placeholder="Correo" value="${emailValor}" autocomplete="off">
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>  
@@ -149,7 +149,15 @@ const pasoUno = () => {
         </div>
         <div class="field">
             <p id="control_contrasena" class="control has-icons-left has-icons-right">
-                <input class="input" type="password" id="contrasena" name="contrasena" placeholder="Contraseña" autocomplete="off">
+                <input 
+                    class="input" 
+                    type="password" 
+                    id="contrasena" 
+                    name="contrasena" 
+                    placeholder="Contraseña" 
+                    value="${contrasenaValor}" 
+                    autocomplete="off"
+                >
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
