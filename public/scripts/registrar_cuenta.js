@@ -21,6 +21,10 @@ let registrar;
 let regresar;
 let emailValor = '';
 let contrasenaValor = '';
+let nombreValor = '';
+let apellidoValor = '';
+let telefonoValor = '';
+let fechaValor = '';
 let contrasenaValida;
 let emailValido;
 
@@ -174,7 +178,15 @@ const pasoUno = () => {
     inputs.innerHTML = `
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" id="email" name="email" placeholder="Correo" value="${emailValor}" autocomplete="off">
+                <input 
+                    class="input" 
+                    type="text" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Correo" 
+                    value="${emailValor}" 
+                    autocomplete="off"
+                >
                 <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                 </span>  
@@ -217,11 +229,12 @@ const pasoUno = () => {
 // Paso Dos: Nombre, Apellido, Teléfono y Fecha de Nacimiento
 const pasoDos = () => {
     inputs.innerHTML = `
+        <!-- Valores ocultos para que formen parte de req.body -->
         <input class="input" type="hidden" name="email" value="${emailValor}" autocomplete="off">
         <input class="input" type="hidden" name="contrasena" value="${contrasenaValor}" autocomplete="off">
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" name="nombre" placeholder="Nombre" autocomplete="off">
+                <input class="input" type="text" id="nombre" name="nombre" placeholder="Nombre" value="${nombreValor}" autocomplete="off">
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>  
@@ -229,7 +242,7 @@ const pasoDos = () => {
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" name="apellido" placeholder="Apellido" autocomplete="off">
+                <input class="input" type="text" id="apellido" name="apellido" placeholder="Apellido" value="${apellidoValor}" autocomplete="off">
                 <span class="icon is-small is-left">
                     <i class="fas fa-users"></i>
                 </span>  
@@ -237,7 +250,7 @@ const pasoDos = () => {
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" name="telefono" placeholder="Número Telefónico" autocomplete="off">
+                <input class="input" type="text" id="telefono" name="telefono" placeholder="Número Telefónico" value="${telefonoValor}" autocomplete="off">
                 <span class="icon is-small is-left">
                     <i class="fas fa-phone"></i>
                 </span>  
@@ -245,7 +258,7 @@ const pasoDos = () => {
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Fecha de Nacimiento">
+                <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" id="fecha_nacimiento" name="fecha_nacimiento" value="${fechaValor}" placeholder="Fecha de Nacimiento">
                 <span class="icon is-small is-left">
                     <i class="fas fa-calendar"></i>
                 </span>  
@@ -288,6 +301,7 @@ const eventSiguiente = () => {
             // Guardar valores introducidos por usuario
             emailValor = document.getElementById('email').value;
             contrasenaValor = document.getElementById('contrasena').value;
+            
 
             pasoDos();
             eventRegresar();
@@ -301,7 +315,12 @@ const eventRegresar = () => {
     if (botonRegresar){
         botonRegresar.addEventListener('click', (event) => {
             event.preventDefault();
-            
+
+            nombreValor = document.getElementById('nombre').value
+            apellidoValor = document.getElementById('apellido').value
+            telefonoValor = document.getElementById('telefono').value
+            fechaValor = document.getElementById('fecha_nacimiento').value
+
             pasoUno();
             eventSiguiente();
         })
