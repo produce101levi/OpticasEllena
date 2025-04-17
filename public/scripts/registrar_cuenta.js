@@ -22,7 +22,7 @@ let regresar;
 let emailValor = '';
 let contrasenaValor = '';
 let contrasenaValida;
-let correoValido;
+let emailValido;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -33,6 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
 // ----------------------
 // FUNCIONES
 // ----------------------
+
+// Función de validación de correo electrónico
+const validarCorreo = () => {
+    const inputEmail = document.getElementById("email");
+
+    inputEmail.addEventListener("input", (event) => {
+        let email = event.target.value;
+        const regex = /^[^\s@]+@[a-z]+\.[^\s@]+$/;
+
+        if (regex.test(email)){
+            inputEmail.classList.remove("is-danger");
+            inputEmail.classList.add("is-success", "has-text-black");
+            emailValido = true
+        } else {
+            inputEmail.classList.remove("is-success")
+            inputEmail.classList.add("is-danger", "has-text-black");
+            emailValido = false
+        }
+        validarCredenciales()
+    })
+
+}
 
 // Función de validación instantánea de contraseña
 const validarContrasena = () => {
@@ -71,15 +93,15 @@ const validarContrasena = () => {
             inputContrasena.classList.remove("is-success", "is-danger")
             validacion.innerHTML = ''
         }
-
-        if (contrasenaValida){
-            siguiente.disabled = false;
-        } else {
-            siguiente.disabled = true;
-        }
-    
+        
+        validarCredenciales();
     })
 
+}
+
+// Función para validar correo y contraseña
+const validarCredenciales = () => {
+    siguiente.disabled = !(contrasenaValida && emailValido)
 }
 
 // Función para permitir ver contraseña
@@ -186,6 +208,7 @@ const pasoUno = () => {
 
     siguiente = document.getElementById('siguiente');
     if(contrasenaValida) siguiente.disabled = false;
+    validarCorreo();
     validarContrasena();
     verContrasena();
     detectarMayus();
