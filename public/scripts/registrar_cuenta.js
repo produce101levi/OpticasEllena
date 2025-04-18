@@ -61,7 +61,7 @@ const validarCorreo = () => {
             inputEmail.classList.remove("is-success", "is-danger")
         }
 
-        // siguiente.disabled = !(contrasenaValida && emailValido)
+        siguiente.disabled = !(contrasenaValida && emailValido)
     })
     
 }
@@ -104,7 +104,7 @@ const validarContrasena = () => {
             validacion.innerHTML = ''
         }
         
-        // siguiente.disabled = !(contrasenaValida && emailValido)
+        siguiente.disabled = !(contrasenaValida && emailValido)
     })
 
 }
@@ -134,7 +134,7 @@ const validarInfo = () => {
         }
 
         if (nombre == '') inputNombre.classList.remove("is-success", "is-danger");
-        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar apellido
@@ -151,7 +151,7 @@ const validarInfo = () => {
         }
 
         if (apellido == '') inputApellido.classList.remove("is-success", "is-danger");
-        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar teléfono
@@ -171,7 +171,7 @@ const validarInfo = () => {
         }
 
         if (telefono == '') inputTelefono.classList.remove("is-success", "is-danger");
-        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar fecha
@@ -184,7 +184,7 @@ const validarInfo = () => {
             inputFecha.classList.remove("is-success");
             fechaValida = false;
         }
-        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     
@@ -297,7 +297,7 @@ const pasoUno = () => {
         <div class="is-size-7 mb-2" id="validacion">
         </div>
         <div class="field">
-            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth">Siguiente</button>
+            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth" disabled>Siguiente</button>
         </div>
     `
 
@@ -349,7 +349,7 @@ const pasoDos = () => {
             <button id="regresar" class="button is-light is-medium is-fullwidth">Regresar</button>
         </div>
         <div class="field">
-            <button id="registrar" class="button is-danger-dark is-medium is-fullwidth">Registrar Usuario</button>
+            <button id="registrar" class="button is-danger-dark is-medium is-fullwidth" disabled>Registrar Usuario</button>
         </div>
         
     `
