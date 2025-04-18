@@ -1,3 +1,6 @@
+// Importar países en español
+import paisesEsp from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/i18n/es/countries.js";
+
 // ----------------------
 // MÓDULOS FIREBASE
 // ----------------------
@@ -56,7 +59,7 @@ const validarCorreo = () => {
         if (email == ''){
             inputEmail.classList.remove("is-success", "is-danger")
         }
-        
+
         siguiente.disabled = !(contrasenaValida && emailValido)
     })
     
@@ -162,7 +165,7 @@ const validarInfo = () => {
             telefonoValido = false;
         }
 
-        if (telefono = '') inputTelefono.classList.remove("is-success", "is-danger");
+        if (telefono == '') inputTelefono.classList.remove("is-success", "is-danger");
         registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
@@ -325,9 +328,6 @@ const pasoDos = () => {
         <div class="field">
             <p class="control has-icons-left">
                 <input class="input" type="text" id="telefono" name="telefono" placeholder="Número Telefónico" value="${telefonoValor}" autocomplete="off">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-phone"></i>
-                </span>  
             </p>
         </div>
         <div class="field">
@@ -361,6 +361,14 @@ const pasoDos = () => {
                 longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
             }
         }
+    });
+
+    const inputTelefono = document.querySelector("#telefono");
+    window.intlTelInput(inputTelefono, {
+        separateDialCode: true,
+        initialCountry: "MX",
+        i18n: paisesEsp,
+        loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
     });
 
     validarInfo();

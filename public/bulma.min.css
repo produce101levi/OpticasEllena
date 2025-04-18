@@ -71,3 +71,15 @@
     width: 100%;
     position: fixed;
 }
+
+.control.has-icons-left .icon {
+    z-index: 1
+}
+
+.iti__search-input {
+    padding: 8px;
+}
+
+.iti {
+    width: 100%
+}
