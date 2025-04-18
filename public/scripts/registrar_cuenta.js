@@ -1,4 +1,6 @@
-// Importar países en español
+// ----------------------
+// MÓDULOS INTL
+// ----------------------
 import paisesEsp from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/i18n/es/countries.js";
 
 // ----------------------
@@ -6,7 +8,7 @@ import paisesEsp from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/
 // ----------------------
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 const firebaseConfig = window.firebaseEnv;
 
@@ -82,10 +84,8 @@ const validarContrasena = () => {
             inputContrasena.classList.add("is-success", "has-text-black");
             validacion.classList.remove("has-text-danger");
             validacion.classList.add("has-text-success");
-            validacion.innerHTML = `
-                Contraseña segura
-            `
-            contrasenaValida = true
+            validacion.innerHTML = '';
+            contrasenaValida = true;
         } else if (!regex.test(contrasena)){
             inputContrasena.classList.remove("is-success")
             inputContrasena.classList.add("is-danger", "has-text-black");
@@ -398,7 +398,7 @@ const pasoDos = () => {
     mantInfoVal();
 }
 
-// Funciones para manejar event listener de botones SIGUIENTE y REGRESAR
+// Funciones para manejar event listener de botones SIGUIENTE, REGRESAR y REGISTRAR
 const eventSiguiente = () => {
     const botonSig = document.getElementById('siguiente');
 
@@ -413,6 +413,7 @@ const eventSiguiente = () => {
 
             pasoDos();
             eventRegresar();
+            eventRegistrar();
         })
     }
 }
@@ -435,4 +436,20 @@ const eventRegresar = () => {
     }
 }
 
+const eventRegistrar = () => {
+    const botonRegistrar = document.getElementById('registrar');
+    if (botonRegistrar) {
+        botonRegistrar.addEventListener('click', (event) => {
+            createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
+            .then((userCredential) => {
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            })
+        })
+    }
+}
 
