@@ -390,6 +390,8 @@ const pasoDos = () => {
         loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
     });
 
+    document.getElementById('telcompleto').value = iti.getNumber();
+
     registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
 
     validarInfo();
