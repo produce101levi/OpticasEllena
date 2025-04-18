@@ -20,14 +20,13 @@ const auth = getAuth(app);
 const Form = document.getElementById('registrarForm');
 const inputs = document.getElementById('inputs');
 let siguiente, registrar, regresar, contrasenaValida, emailValido, nombreValido, apellidoValido,
-telefonoValido, fechaValida;
+telefonoValido, fechaValida, iti;
 let emailValor = '';
 let contrasenaValor = '';
 let nombreValor = '';
 let apellidoValor = '';
 let telefonoValor = '';
 let fechaValor = '';
-let iti;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -255,9 +254,21 @@ const detectarMayus = () => {
     })
 }
 
+// Detectar validez de datos
+const mantCredVal = () => {
+    if (emailValido) document.getElementById('email').classList.add('is-success');
+    if (contrasenaValida) document.getElementById('contrasena').classList.add('is-success');
+}
+
+const mantInfoVal = () => {
+    if (nombreValido) document.getElementById('nombre').classList.add('is-success');
+    if (apellidoValido) document.getElementById('apellido').classList.add('is-success');
+    if (telefonoValido) document.getElementById('telefono').classList.add('is-success');
+    if (fechaValida) document.getElementById('fecha_nacimiento').classList.add('is-success');
+}
+
 // Paso uno: Correo y Contraseña
 const pasoUno = () => {
-
     inputs.innerHTML = `
         <div class="field">
             <p class="control has-icons-left">
@@ -307,6 +318,7 @@ const pasoUno = () => {
     validarContrasena();
     verContrasena();
     detectarMayus();
+    mantCredVal();
 }
 
 // Paso Dos: Nombre, Apellido, Teléfono y Fecha de Nacimiento
@@ -378,7 +390,10 @@ const pasoDos = () => {
         loadUtils: () => import("https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/utils.js"),
     });
 
+    registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+
     validarInfo();
+    mantInfoVal();
 }
 
 // Funciones para manejar event listener de botones SIGUIENTE y REGRESAR
