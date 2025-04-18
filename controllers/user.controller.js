@@ -108,9 +108,7 @@ exports.postRegistrar = async (req, res, next) => {
         // const nuevoUsuario = new Usuario(
         //     email, contrasena
         // );
-        const telefono = parsePhoneNumberFromString(req.body.telefono);
 
-        // console.log("Formatted Number:", telefono.formatInternational());
         console.log(req.body);
 
         // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;

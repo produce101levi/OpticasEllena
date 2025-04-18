@@ -27,6 +27,7 @@ let nombreValor = '';
 let apellidoValor = '';
 let telefonoValor = '';
 let fechaValor = '';
+let iti;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -60,7 +61,7 @@ const validarCorreo = () => {
             inputEmail.classList.remove("is-success", "is-danger")
         }
 
-        siguiente.disabled = !(contrasenaValida && emailValido)
+        // siguiente.disabled = !(contrasenaValida && emailValido)
     })
     
 }
@@ -103,7 +104,7 @@ const validarContrasena = () => {
             validacion.innerHTML = ''
         }
         
-        siguiente.disabled = !(contrasenaValida && emailValido)
+        // siguiente.disabled = !(contrasenaValida && emailValido)
     })
 
 }
@@ -113,6 +114,7 @@ const validarInfo = () => {
     const inputNombre = document.getElementById('nombre');
     const inputApellido = document.getElementById('apellido');
     const inputTelefono = document.getElementById('telefono');
+    const inputTelCompleto = document.getElementById('telcompleto');
     const inputFecha = document.getElementById('fecha_nacimiento');
 
     const telefonoRegex = /^\+?[0-9()-\s]+$/
@@ -132,7 +134,7 @@ const validarInfo = () => {
         }
 
         if (nombre == '') inputNombre.classList.remove("is-success", "is-danger");
-        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar apellido
@@ -149,13 +151,16 @@ const validarInfo = () => {
         }
 
         if (apellido == '') inputApellido.classList.remove("is-success", "is-danger");
-        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar teléfono
     inputTelefono.addEventListener('input', () => {
         let telefono = inputTelefono.value
-        if (telefonoRegex.test(telefono)){
+
+        inputTelCompleto.value = iti.getNumber();
+
+        if (telefonoRegex.test(telefono) && iti.isValidNumber()){
             inputTelefono.classList.remove("is-danger");
             inputTelefono.classList.add("is-success", "has-text-black");
             telefonoValido = true;
@@ -166,7 +171,7 @@ const validarInfo = () => {
         }
 
         if (telefono == '') inputTelefono.classList.remove("is-success", "is-danger");
-        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar fecha
@@ -179,9 +184,10 @@ const validarInfo = () => {
             inputFecha.classList.remove("is-success");
             fechaValida = false;
         }
-        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
+        // registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
+    
     
 }
 
@@ -291,7 +297,7 @@ const pasoUno = () => {
         <div class="is-size-7 mb-2" id="validacion">
         </div>
         <div class="field">
-            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth" disabled>Siguiente</button>
+            <button id="siguiente" class="button is-danger-dark is-medium is-fullwidth">Siguiente</button>
         </div>
     `
 
@@ -327,9 +333,10 @@ const pasoDos = () => {
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="text" id="telefono" name="telefono" placeholder="Número Telefónico" value="${telefonoValor}" autocomplete="off">
+                <input class="input" type="tel" id="telefono" placeholder="Número Telefónico" value="${telefonoValor}" autocomplete="off">
             </p>
         </div>
+        <input type="hidden" id="telcompleto" name="telefono">
         <div class="field">
             <p class="control has-icons-left">
                 <input class="input" type="text" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" id="fecha_nacimiento" name="fecha_nacimiento" value="${fechaValor}" placeholder="Fecha de Nacimiento">
@@ -364,7 +371,7 @@ const pasoDos = () => {
     });
 
     const inputTelefono = document.querySelector("#telefono");
-    window.intlTelInput(inputTelefono, {
+    iti = intlTelInput(inputTelefono, {
         separateDialCode: true,
         initialCountry: "MX",
         i18n: paisesEsp,
