@@ -16,17 +16,14 @@ const auth = getAuth(app);
 // ----------------------
 const Form = document.getElementById('registrarForm');
 const inputs = document.getElementById('inputs');
-let siguiente;
-let registrar;
-let regresar;
+let siguiente, registrar, regresar, contrasenaValida, emailValido, nombreValido, apellidoValido,
+telefonoValido, fechaValida;
 let emailValor = '';
 let contrasenaValor = '';
 let nombreValor = '';
 let apellidoValor = '';
 let telefonoValor = '';
 let fechaValor = '';
-let contrasenaValida;
-let emailValido;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -55,6 +52,11 @@ const validarCorreo = () => {
             inputEmail.classList.add("is-danger", "has-text-black");
             emailValido = false
         }
+
+        if (email == ''){
+            inputEmail.classList.remove("is-success", "is-danger")
+        }
+
         validarCredenciales()
     })
 
@@ -106,6 +108,69 @@ const validarContrasena = () => {
 // Función para validar correo y contraseña
 const validarCredenciales = () => {
     siguiente.disabled = !(contrasenaValida && emailValido)
+}
+
+// Función para validar información básica
+const validarInfo = () => {
+    const inputNombre = document.getElementById('nombre');
+    const inputApellido = document.getElementById('apellido');
+    const inputTelefono = document.getElementById('telefono');
+    const inputFecha = document.getElementById('fecha_nacimiento');
+
+    const telefonoRegex = /^\+?[0-9()-\s]+$/
+    const stringRegex = /^[\p{L}\s]+$/u
+
+    // Validar nombre
+    inputNombre.addEventListener('input', () => {
+        let nombre = inputNombre.value;
+        if (stringRegex.test(nombre)){
+            inputNombre.classList.remove("is-danger");
+            inputNombre.classList.add("is-success", "has-text-black");
+        } else {
+            inputNombre.classList.remove("is-success");
+            inputNombre.classList.add("is-danger", "has-text-black");
+        }
+
+        if (nombre == '') inputNombre.classList.remove("is-success", "is-danger");
+    })
+
+    // Validar apellido
+    inputApellido.addEventListener('input', () => {
+        let apellido = inputApellido.value
+        if (stringRegex.test(apellido)){
+            inputApellido.classList.remove("is-danger");
+            inputApellido.classList.add("is-success", "has-text-black");
+        } else {
+            inputApellido.classList.remove("is-success");
+            inputApellido.classList.add("is-danger", "has-text-black");
+        }
+
+        if (apellido == '') inputApellido.classList.remove("is-success", "is-danger");
+    })
+
+    // Validar teléfono
+    inputTelefono.addEventListener('input', () => {
+        let telefono = inputTelefono.value
+        if (telefonoRegex.test(telefono)){
+            inputTelefono.classList.remove("is-danger");
+            inputTelefono.classList.add("is-success", "has-text-black");
+        } else {
+            inputTelefono.classList.remove("is-success");
+            inputTelefono.classList.add("is-danger", "has-text-black");
+        }
+
+        if (telefono = '') inputTelefono.classList.remove("is-success", "is-danger");
+    })
+
+    // Validar fecha
+    inputFecha.addEventListener('input', () => {
+        let fecha = inputFecha.value
+        if (fecha != ''){
+            inputFecha.classList.add("is-success", "has-text-black");
+        } else {
+            inputFecha.classList.remove("is-success");
+        }
+    })
 }
 
 // Función para permitir ver contraseña
@@ -288,6 +353,8 @@ const pasoDos = () => {
             }
         }
     });
+
+    validarInfo();
 }
 
 // Funciones para manejar event listener de botones SIGUIENTE y REGRESAR
