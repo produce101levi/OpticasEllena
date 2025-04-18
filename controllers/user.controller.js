@@ -1,7 +1,12 @@
 const admin = require('../firebase'); 
 // const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
 const Usuario = require('../models/usuario.model');
+
+// -------------
+// LIBRERÍAS
+// -------------
 const bcrypt = require('bcryptjs');
+const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
 // exports.getLogin = async (req, res, next) => {
 //     try {
@@ -99,20 +104,20 @@ exports.getRegistrar = async (req, res, next) => {
 
 exports.postRegistrar = async (req, res, next) => {
     try {
-        // Get the email and password from the form
-        const { email, contrasena } = req.body;
 
         // const nuevoUsuario = new Usuario(
         //     email, contrasena
         // );
+        const telefono = parsePhoneNumberFromString(req.body.telefono);
 
+        console.log("Formatted Number:", telefono.formatInternational());
         console.log(req.body);
 
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-        if (!regex.test(contrasena)){
-            req.session.error = "La contraseña debe tener una mayúscula, una minúscula, un número y un caracter special."
-            return res.redirect('/user/registrar');
-        }
+        // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        // if (!regex.test(contrasena)){
+        //     req.session.error = "La contraseña debe tener una mayúscula, una minúscula, un número y un caracter special."
+        //     return res.redirect('/user/registrar');
+        // }
 
         // nuevoUsuario.registrarUsuario()
         //     .then(([rows, fieldData]) => {

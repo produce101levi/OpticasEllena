@@ -56,10 +56,10 @@ const validarCorreo = () => {
         if (email == ''){
             inputEmail.classList.remove("is-success", "is-danger")
         }
-
-        validarCredenciales()
+        
+        siguiente.disabled = !(contrasenaValida && emailValido)
     })
-
+    
 }
 
 // Función de validación instantánea de contraseña
@@ -100,14 +100,9 @@ const validarContrasena = () => {
             validacion.innerHTML = ''
         }
         
-        validarCredenciales();
+        siguiente.disabled = !(contrasenaValida && emailValido)
     })
 
-}
-
-// Función para validar correo y contraseña
-const validarCredenciales = () => {
-    siguiente.disabled = !(contrasenaValida && emailValido)
 }
 
 // Función para validar información básica
@@ -126,12 +121,15 @@ const validarInfo = () => {
         if (stringRegex.test(nombre)){
             inputNombre.classList.remove("is-danger");
             inputNombre.classList.add("is-success", "has-text-black");
+            nombreValido = true;
         } else {
             inputNombre.classList.remove("is-success");
             inputNombre.classList.add("is-danger", "has-text-black");
+            nombreValido = false;
         }
 
         if (nombre == '') inputNombre.classList.remove("is-success", "is-danger");
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar apellido
@@ -140,12 +138,15 @@ const validarInfo = () => {
         if (stringRegex.test(apellido)){
             inputApellido.classList.remove("is-danger");
             inputApellido.classList.add("is-success", "has-text-black");
+            apellidoValido = true;
         } else {
             inputApellido.classList.remove("is-success");
             inputApellido.classList.add("is-danger", "has-text-black");
+            apellidoValido = false;
         }
 
         if (apellido == '') inputApellido.classList.remove("is-success", "is-danger");
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar teléfono
@@ -154,12 +155,15 @@ const validarInfo = () => {
         if (telefonoRegex.test(telefono)){
             inputTelefono.classList.remove("is-danger");
             inputTelefono.classList.add("is-success", "has-text-black");
+            telefonoValido = true;
         } else {
             inputTelefono.classList.remove("is-success");
             inputTelefono.classList.add("is-danger", "has-text-black");
+            telefonoValido = false;
         }
 
         if (telefono = '') inputTelefono.classList.remove("is-success", "is-danger");
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
 
     // Validar fecha
@@ -167,10 +171,15 @@ const validarInfo = () => {
         let fecha = inputFecha.value
         if (fecha != ''){
             inputFecha.classList.add("is-success", "has-text-black");
+            fechaValida = true;
         } else {
             inputFecha.classList.remove("is-success");
+            fechaValida = false;
         }
+        registrar.disabled = !(nombreValido && apellidoValido && telefonoValido && fechaValida);
     })
+
+    
 }
 
 // Función para permitir ver contraseña
