@@ -1,5 +1,5 @@
 const admin = require('../firebase'); 
-// const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = require("firebase/auth");
+const { getAuth } = require("firebase-admin/auth");
 const Usuario = require('../models/usuario.model');
 
 // -------------
@@ -105,7 +105,7 @@ exports.getRegistrar = async (req, res, next) => {
 exports.postRegistrar = async (req, res, next) => {
     try {
 
-        const { email, nombre, apellido, 
+        const { email, contrasena, nombre, apellido, 
             telefono, fecha_nacimiento } = req.body
 
         const nuevoUsuario = new Usuario(
@@ -115,7 +115,10 @@ exports.postRegistrar = async (req, res, next) => {
         
         nuevoUsuario.registrarUsuario()
         .then(([rows, fieldData]) => {
-            console.log(rows);
+            getAuth().createUser({email: email, password: contrasena})
+            .then((userRecord) => {
+                console.log("Successfully created new user:", userRecord.uid);
+            })
         })
         .catch((error) => {
             errorCode = error.code
@@ -128,18 +131,18 @@ exports.postRegistrar = async (req, res, next) => {
             res.redirect('/user/registrar');
         })
 
-        const { token } = req.body;
+        // const { token } = req.body;
             
-        const firebaseID = await admin.auth().verifyIdToken(token);
+        // const firebaseID = await admin.auth().verifyIdToken(token);
 
-        const expiresIn = 60 * 60 * 1000; // 1 hora (en milisegundos);
-        const sessionCookie = await admin.auth().createSessionCookie(token, { expiresIn });
+        // const expiresIn = 60 * 60 * 1000; // 1 hora (en milisegundos);
+        // const sessionCookie = await admin.auth().createSessionCookie(token, { expiresIn });
 
-        res.cookie('session', sessionCookie, {
-            maxAge: expiresIn,
-            httpOnly: true,
-            secure: false
-        })
+        // res.cookie('session', sessionCookie, {
+        //     maxAge: expiresIn,
+        //     httpOnly: true,
+        //     secure: false
+        // })
 
         res.send('Éxito registrando usuario');
 

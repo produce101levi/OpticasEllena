@@ -8,7 +8,7 @@ import paisesEsp from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/
 // ----------------------
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 const firebaseConfig = window.firebaseEnv;
 
@@ -437,31 +437,31 @@ const eventRegresar = () => {
     }
 }
 
-const eventRegistrar = () => {
-    const botonRegistrar = document.getElementById('registrar');
-    if (botonRegistrar) {
-        botonRegistrar.addEventListener('click', (event) => {
-            event.preventDefault();
+// const eventRegistrar = () => {
+//     const botonRegistrar = document.getElementById('registrar');
+//     if (botonRegistrar) {
+//         botonRegistrar.addEventListener('click', (event) => {
+//             event.preventDefault();
 
-            const tokenField = document.getElementById('token');
+//             const tokenField = document.getElementById('token');
 
-            createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
-            .then((userCredential) => {
-                console.log("User Credential:", userCredential);
-                userCredential.user.getIdToken().then((token) => {
-                    console.log("Token", token);
-                    tokenField.value = token;
-                    Form.submit()
-                });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-            })
-        })
-    }
-}
+//             createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
+//             .then((userCredential) => {
+//                 console.log("User Credential:", userCredential);
+//                 userCredential.user.getIdToken().then((token) => {
+//                     console.log("Token", token);
+//                     tokenField.value = token;
+//                     Form.submit()
+//                 });
+//             })
+//             .catch((error) => {
+//                 const errorCode = error.code;
+//                 const errorMessage = error.message;
+//                 console.log(errorCode, errorMessage);
+//             })
+//         })
+//     }
+// }
 
 // async function createUser(event){
 //     event.preventDefault();
