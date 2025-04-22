@@ -5,14 +5,12 @@ module.exports = class Usuario {
 
     constructor(
         mi_correo,
-        mi_contrasena,
         mi_nombre,
         mi_apellido,
         mi_telefono,
         mi_fecha_nacimiento,
     ){
         this.correo = mi_correo;
-        this.contrasena = mi_contrasena;
         this.nombre = mi_nombre;
         this.apellido = mi_apellido;
         this.telefono = mi_telefono;
@@ -24,7 +22,7 @@ module.exports = class Usuario {
             `INSERT INTO usuarios(
                 correo, nombre, apellido, telefono, fecha_nacimiento, IDRol
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?)`,
             [this.correo, this.nombre, this.apellido, 
             this.telefono, this.fecha_nacimiento, 1]);
         

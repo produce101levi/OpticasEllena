@@ -105,12 +105,12 @@ exports.getRegistrar = async (req, res, next) => {
 exports.postRegistrar = async (req, res, next) => {
     try {
 
-        const { email, contrasena, nombre,
-            apellido, telefono, correo,
-            fecha_nacimiento } = req.body
+        const { email, nombre, apellido, 
+            telefono, fecha_nacimiento } = req.body
+
         const nuevoUsuario = new Usuario(
-            email, contrasena, nombre,
-            apellido, telefono, fecha_nacimiento
+            email, nombre, apellido, 
+            telefono, fecha_nacimiento
         );
         
         nuevoUsuario.registrarUsuario()
@@ -142,7 +142,6 @@ exports.postRegistrar = async (req, res, next) => {
         })
 
         res.send('Éxito registrando usuario');
-
 
     } catch(error){
         console.log("[POST REGISTRAR]", error);
