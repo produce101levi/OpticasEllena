@@ -5,21 +5,28 @@ module.exports = class Usuario {
 
     constructor(
         mi_correo,
-        mi_contrasena
+        mi_contrasena,
+        mi_nombre,
+        mi_apellido,
+        mi_telefono,
+        mi_fecha_nacimiento,
     ){
         this.correo = mi_correo;
         this.contrasena = mi_contrasena;
+        this.nombre = mi_nombre;
+        this.apellido = mi_apellido;
+        this.telefono = mi_telefono;
+        this.fecha_nacimiento = mi_fecha_nacimiento;
     }
 
     registrarUsuario(){
-        return bcrypt.hash(this.contrasena, 12).then((contrasenaCifrada) => {
-            return db.execute(
-                `INSERT INTO usuarios(
-                    correo, contrasena, IDRol
-                ) 
-                VALUES (?, ?, ?)`,
-                [this.correo, contrasenaCifrada, 1]);
-        })
+        return db.execute(
+            `INSERT INTO usuarios(
+                correo, nombre, apellido, telefono, fecha_nacimiento, IDRol
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [this.correo, this.nombre, this.apellido, 
+            this.telefono, this.fecha_nacimiento, 1]);
         
     }
 

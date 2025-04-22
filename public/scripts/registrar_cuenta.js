@@ -327,6 +327,7 @@ const pasoDos = () => {
         <!-- Valores ocultos para que formen parte de req.body -->
         <input class="input" type="hidden" name="email" value="${emailValor}" autocomplete="off">
         <input class="input" type="hidden" name="contrasena" value="${contrasenaValor}" autocomplete="off">
+        <input type="hidden" name="token" id="token" />
         <div class="field">
             <p class="control has-icons-left">
                 <input class="input" type="text" id="nombre" name="nombre" placeholder="Nombre" value="${nombreValor}" autocomplete="off">
@@ -440,9 +441,18 @@ const eventRegistrar = () => {
     const botonRegistrar = document.getElementById('registrar');
     if (botonRegistrar) {
         botonRegistrar.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const tokenField = document.getElementById('token');
+
             createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
             .then((userCredential) => {
-                const user = userCredential.user;
+                console.log("User Credential:", userCredential);
+                userCredential.user.getIdToken().then((token) => {
+                    console.log("Token", token);
+                    tokenField.value = token;
+                    Form.submit()
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -452,4 +462,21 @@ const eventRegistrar = () => {
         })
     }
 }
+
+// async function createUser(event){
+//     event.preventDefault();
+
+//     const email = document.getElementById('email').value;
+//     const password = document.getElementById('password').value;
+
+//     try {
+//         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+//         const token = await userCredential.user.getIdToken();
+//         tokenField.value = token;
+//         Form.submit();
+//     } catch (error){
+//         console.log(error.message);
+//     }
+// }
+// Form.addEventListener('submit', createUser);
 
