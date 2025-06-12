@@ -8,7 +8,7 @@ import paisesEsp from "https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/
 // ----------------------
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 const firebaseConfig = window.firebaseEnv;
 
@@ -29,6 +29,7 @@ let nombreValor = '';
 let apellidoValor = '';
 let telefonoValor = '';
 let fechaValor = '';
+const csrf = document.querySelector('input[name="_csrf"]').value;
 
 // En cuanto carga la página, se carga el contenido del paso uno
 document.addEventListener('DOMContentLoaded', () => {
@@ -437,31 +438,49 @@ const eventRegresar = () => {
     }
 }
 
-// const eventRegistrar = () => {
-//     const botonRegistrar = document.getElementById('registrar');
-//     if (botonRegistrar) {
-//         botonRegistrar.addEventListener('click', (event) => {
-//             event.preventDefault();
+const eventRegistrar = () => {
+    const botonRegistrar = document.getElementById('registrar');
+    if (botonRegistrar) {
+        botonRegistrar.addEventListener('click', (event) => {
+            event.preventDefault();
 
-//             const tokenField = document.getElementById('token');
+                fetch('/user/registrar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'CSRF-Token': csrf
+                    },
+                    body: JSON.stringify({
+                        email: emailValor,
+                        nombre: nombreValor,
+                        apellido: apellidoValor,
+                        telefono: telefonoValor,
+                        fecha_nacimiento: fechaValor
+                    })
+                }).then((response) => {
+                    console.log("Ok:", response.ok);
+                    if (!response.ok) throw new Error("Error al registrar usuario");
+                    createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
+                    .then((userCredential) => {
+                        console.log("User Credential:", userCredential.user.email);
+                        sendEmailVerification(getAuth().currentUser)
+                        .then(() => {
+                            Form.submit();
+                        }).catch((error) => {
+                            console.log("Error al mandar correo de verificación")
+                        })
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.log(errorCode, errorMessage);
+                    })
 
-//             createUserWithEmailAndPassword(auth, emailValor, contrasenaValor)
-//             .then((userCredential) => {
-//                 console.log("User Credential:", userCredential);
-//                 userCredential.user.getIdToken().then((token) => {
-//                     console.log("Token", token);
-//                     tokenField.value = token;
-//                     Form.submit()
-//                 });
-//             })
-//             .catch((error) => {
-//                 const errorCode = error.code;
-//                 const errorMessage = error.message;
-//                 console.log(errorCode, errorMessage);
-//             })
-//         })
-//     }
-// }
+                })
+
+        })
+    }
+}
 
 // async function createUser(event){
 //     event.preventDefault();

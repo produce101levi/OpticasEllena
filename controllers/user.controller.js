@@ -103,50 +103,21 @@ exports.getRegistrar = async (req, res, next) => {
 }
 
 exports.postRegistrar = async (req, res, next) => {
+    const { email, nombre, apellido, telefono, fecha_nacimiento } = req.body;
+    console.log(req.body);
+
     try {
+        const nuevoUsuario = new Usuario(email, nombre, apellido, telefono, fecha_nacimiento);
+        await nuevoUsuario.registrarUsuario();
+        res.status(201).json({ message: "User created in DB" });
 
-        const { email, contrasena, nombre, apellido, 
-            telefono, fecha_nacimiento } = req.body
-
-        const nuevoUsuario = new Usuario(
-            email, nombre, apellido, 
-            telefono, fecha_nacimiento
-        );
-        
-        nuevoUsuario.registrarUsuario()
-        .then(([rows, fieldData]) => {
-            getAuth().createUser({email: email, password: contrasena})
-            .then((userRecord) => {
-                console.log("Successfully created new user:", userRecord.uid);
-            })
-        })
-        .catch((error) => {
-            errorCode = error.code
-            console.log("[NUEVOUSUARIO POST]", error);
-            if (errorCode == 'ER_DUP_ENTRY') {
-                req.session.error = "Este usuario o correo electrónico ya está asociado con una cuenta."
-            } else {
-                req.session.error = "Ha ocurrido un error registrando el usuario.";
-            }
-            res.redirect('/user/registrar');
-        })
-
-        // const { token } = req.body;
-            
-        // const firebaseID = await admin.auth().verifyIdToken(token);
-
-        // const expiresIn = 60 * 60 * 1000; // 1 hora (en milisegundos);
-        // const sessionCookie = await admin.auth().createSessionCookie(token, { expiresIn });
-
-        // res.cookie('session', sessionCookie, {
-        //     maxAge: expiresIn,
-        //     httpOnly: true,
-        //     secure: false
-        // })
-
-        res.send('Éxito registrando usuario');
-
-    } catch(error){
-        console.log("[POST REGISTRAR]", error);
+    } catch (error) {
+        console.error("[ERROR REGISTRO USUARIO]", error);
+        if (error.code === 'ER_DUP_ENTRY') {
+            req.session.error = "Este usuario o correo electrónico ya está asociado con una cuenta.";
+        } else {
+            req.session.error = "Ha ocurrido un error registrando el usuario.";
+        }
+        res.redirect('/user/registrar');
     }
 }
